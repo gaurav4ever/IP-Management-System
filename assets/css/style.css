@@ -1,0 +1,164 @@
+.navbar{
+	border-radius: 0px !important;
+	margin-bottom: 0px;
+	height: 70px;
+}
+.container-fluid{
+	padding-top: 10px;
+}
+.clearfix{
+	margin-bottom: 20px;
+}
+.marketing{
+	text-align: center;
+	margin-bottom: 20px;
+}
+.divider{
+	margin:60px 0;
+}
+hr{
+border:solid 1px #eee;
+}
+.thumbnail img{
+	width: 100%;
+}
+.section-title h4{
+	color: #94a3a8;
+}
+.container{
+	margin-top: 10px;
+}
+.row, .marketing{
+	margin-top: 20px;
+	margin-bottom: 0px;
+}
+.navbar-brand{
+	font-family: sans-serif;
+	font-size: 30px;
+}
+.team-section{
+	margin-bottom: 60px;
+	font-family: sans-serif;
+	font-size: 60px;
+}
+.team-img{
+	height: 261px;
+	width: 198px;
+}
+.price{
+	color: blue;
+}
+.footer{
+	margin-top: 80px;
+	height: 300px;
+	background-color: #101010;
+	color: white;
+}
+.footerlink{
+	padding: 0px;
+}
+.footerlink li{
+	list-style: none;
+	padding-bottom: 10px;
+}
+.flinks{
+	padding-bottom: 10px;
+}
+form{
+	margin-left: 2px;
+}
+.getspace{
+	margin-top: 60px;
+}
+.footerlink li a{
+	color: #B8B6B6;
+	text-decoration: none;
+
+}
+.footerlink li a:hover{
+	color: white;
+}
+.marketing{
+	margin-top: 30px;
+}
+.footer{
+	background:#000;
+	padding:5% 0;
+}
+.footcontainer{
+	background-color:#000; 
+}		
+ul.footer_box{
+	list-style:none;
+	padding:0;
+}	
+ul.footer_box h4{
+	color:#fff;
+	font-size:1.5em;
+	text-transform:uppercase;
+	font-weight:700;
+	margin-bottom: 8%;
+}
+ul.footer_box li a{
+	color: #B8B6B6;
+	font-size: 0.9125em;
+	text-decoration:none;
+	line-height: 2em;
+}
+ul.footer_box li a:hover{
+	color:#fff;
+}
+.sc{
+	text-transform: uppercase;
+}
+.scform{
+	color: black;
+}
+.advantagesList{
+	padding-left: 0px;
+}
+.advantagesList li{
+	list-style: none;
+	padding-top: 1px;
+}
+.submitForm input{
+	margin-bottom: 20px;
+	width: 500px;
+}
+.reg{
+	width: 600px;
+}
+.selected{
+	background-color: white;
+}
+dt{
+		margin: 0;
+		padding: 1em 0;
+		cursor: pointer;
+		font-weight: bold;
+		font-size: 1.5em;
+		background: #e3e3e3;
+		border-bottom: 1px solid #c5c5c5;
+		border-top: 1px solid white;
+	}
+	.hide{display: none;}
+	dt:first-child{border-top: none;}
+	dt:nth-last-child(2){border-bottom: none;}
+ul li{
+	list-style: none;
+}
+.ani dd ul{
+	padding:0px;
+}
+.color1{
+	background-color: #6EC8C7;
+}
+.color2{
+	background-color: #ffe766; 
+}
+.color3{
+	background-color: #6f5499;
+}
+.price h4{
+	color: black;
+}

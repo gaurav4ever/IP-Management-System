@@ -1,0 +1,1 @@
+INSERT INTO `nic_worker_info`(`IP`, `username`, `location`, `intercom`, `division`, `designation`, `antivirus`, `MAC`, `Non NIC/ Coordinator`, `connected/ switch`, `issue date`, `reason for change Ip`, `verify Ip in NULL`, `Old user detail`) VALUES ('10.1.10.64','Free IP Address','','','','','','','','','','','','');
