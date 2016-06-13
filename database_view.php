@@ -8,7 +8,7 @@
 		}
 		td{
 			width: 100px;
-			border: 1px solid #d1d1d1;
+			border: 1px solid #000000;
 		}
 		.names td{
 			color: #3333ff;
@@ -19,6 +19,17 @@
 <body>
 
 <img src="img/nic.png" style="width:100%;margin-bottom:40px;"><br/>
+<center>
+ 	<form method="post" action="show.php" action="submit">
+				 Username : 
+				<input type="text" name='searchtext' id="searchtext" placeholder="Enter Username" />
+				<input type="submit" name="search" id="search" value="search"/>
+				<br><br>
+				Ip Address:
+				<input type="text" name='searchtextip' id="searchtextip" placeholder="Enter IP" />
+				<input type="submit" name="searchip" id="searchip" value="search"/><br><br>
+				</form>
+	</center>
 	<?php 
 
 	require 'connect.php';
@@ -72,12 +83,6 @@
 	}
 
  ?>
- <br><center>
- 	<form method="post" action="show.php" action="submit">
-				 Username : 
-				<input type="text" name='searchtext' id="searchtext" value="" />
-				<input type="submit" name="search" id="search" value="search"/>
-				</form>
-	</center>
+ <br>
 </body>
 </html>

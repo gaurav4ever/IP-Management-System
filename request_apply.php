@@ -3,6 +3,7 @@
 <head>
 	<title>Pending Request</title>
 	<link rel="stylesheet" type="text/css" href="style/style_portal.css">
+	<link href='https://fonts.googleapis.com/css?family=Comfortaa' rel='stylesheet' type='text/css'>
 </head>
 <body>
 	<?php
