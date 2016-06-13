@@ -1,3 +1,3 @@
 # Login-System
 A login system using PHP and MySql.
--> Login system for NIC organization for managing IP addresses.
+-> Login system for managing IP addresses.
