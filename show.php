@@ -6,7 +6,12 @@
 	<link href='https://fonts.googleapis.com/css?family=Comfortaa' rel='stylesheet' type='text/css'>
 </head>
 <body>
-<img src="img/nic.png" style="width:100%"><br/><br/>
+<img src="img/nic.png" style="width:100%">
+<div class="banner">
+		<center>
+			<a href="logout_authority.php"><p>Logout</p></a>
+		</center>
+</div>
 
 <?php 
 		
@@ -18,7 +23,7 @@
 
 		$sql1="SELECT * FROM `nic_worker_info` WHERE username='$text'";
 		$sql2="SELECT * FROM `nic_worker_info` WHERE ip='$ip'";
-
+		
 		mysql_select_db("nic database");
 		$retval1=mysql_query($sql1);
 		$retval2=mysql_query($sql2);
@@ -26,14 +31,31 @@
 			die('No such record...<br>'.mysql_error());
 		}
 		else{
-			$mquery1=mysql_fetch_array($retval1);
+			
 			$mquery2=mysql_fetch_array($retval2);
-			if($mquery1['username']=="" && $mquery2['IP']=="")die("Both field are empty...");
-			elseif($mquery1['username']=="")echo "Username field empty...<br> ";
-			elseif($mquery2['IP']=="")echo "IP field empty...<br> ";
-			if($mquery1['IP']==$mquery2['IP'] || $mquery2['IP']==""){
+
+			//user_info database table
+			$user=$mquery2['user'];
+			$sql_user="SELECT * FROM `user_info` WHERE username='$user'";
+			$retval_user=mysql_query($sql_user);
+			$mquery_user=mysql_fetch_array($retval_user);
+			//finished
+
+			if($text=="" && $ip=="")die("Both field are empty...");
+			elseif($text=="")echo "Username field empty...<br> ";
+			elseif($ip=="")echo "IP field empty...<br> ";
+			if($text==$mquery2['username'] || $ip==""){
+				while($mquery1=mysql_fetch_array($retval1)){
+
+					//user_info database table
+					$user=$mquery1['user'];
+					$sql_user="SELECT * FROM `user_info` WHERE username='$user'";
+					$retval_user=mysql_query($sql_user);
+					$mquery_user=mysql_fetch_array($retval_user);
+					//finished
+
 				$text='
-				<div class="container" style="height:400px;">
+					<div class="wrapper" style="width:60%;margin:auto;"> 
 						<h1 class="header">User Details</h1><br/>
 						
 						<div class="row">
@@ -44,6 +66,16 @@
 							<div class="col" style="float:right">
 								<div class="text_field">Ip Add. :</div>
 								'.$mquery1["IP"].'	
+							</div>
+						</div>
+						<div class="row">
+							<div class="col" style="float:left">
+								<div class="text_field">Mobile No. : </div>
+								'.$mquery_user["mobile number"].'
+							</div>
+							<div class="col" style="float:right">
+								<div class="text_field">Email :</div>
+								'.$mquery_user["email"].'	
 							</div>
 						</div>
 						<div class="row">
@@ -106,9 +138,20 @@
 								'.$mquery1['Old user detail'].'
 							</div>
 						</div>
+						<div class="row">
+							<div class="col" style="float:left">
+								<div class="text_field">Issued By : </div>
+								'.$mquery1['Issued By'].'
+							</div>
+							<div class="col" style="float:right">
+								
+							</div>
+						</div>
 				</div>
 			';
 			echo $text;	
+			}
+			echo '<br>';
 			}
 			else{
 				echo "Username and IP did not match..<br>showing result based on IP<br><br>";
@@ -186,15 +229,25 @@
 								'.$mquery2['Old user detail'].'
 							</div>
 						</div>
+						<div class="row">
+							<div class="col" style="float:left">
+								<div class="text_field">Issued By : </div>
+								'.$mquery2['Issued By'].'
+							</div>
+							<div class="col" style="float:right">
+								
+							</div>
+						</div>
 				</div>
 			';
 			echo $text;
 		}
 	}
 	}
- ?>
+ ?><br>
 <center>
-	<BUTTON><a href="database_view.php">Go Back</a></BUTTON>
+	<BUTTON>
+		<a href="database_view.php">Go Back</a></BUTTON>
 </center>
 
 </body>

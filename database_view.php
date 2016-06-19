@@ -2,32 +2,45 @@
 <html>
 <head>
 	<title>nic </title>
+	<link rel="stylesheet" type="text/css" href="style/style_portal.css">
 	<style type="text/css">
 		table{
-			width: 130%;
+			width: 170%;
 		}
 		td{
-			width: 100px;
-			border: 1px solid #000000;
+			font-size: 15px;
+			width: 130px;
+			border: 1px solid #d1d1d1;
 		}
 		.names td{
 			color: #3333ff;
 			font-size: 18px;
 		}
+		input{
+			background-color: #ADD8E6;
+			color: #000000;
+		}
 	</style>
 </head>
 <body>
 
-<img src="img/nic.png" style="width:100%;margin-bottom:40px;"><br/>
+<img src="img/nic.png" style="width:100%;margin-bottom:5px;">
+<div class="banner">
+		<center>
+			<a href="logout_authority.php"><p>Logout</p></a>
+		</center>
+</div><br>
+<button style="height:25px;width:60px;"><a href="authority_portal.php" style="color:#000000;text-decoration:none;">Back</a></button>
+
 <center>
  	<form method="post" action="show.php" action="submit">
 				 Username : 
 				<input type="text" name='searchtext' id="searchtext" placeholder="Enter Username" />
-				<input type="submit" name="search" id="search" value="search"/>
+				<button type="submit" name="search" id="search" />search</button>
 				<br><br>
 				Ip Address:
 				<input type="text" name='searchtextip' id="searchtextip" placeholder="Enter IP" />
-				<input type="submit" name="searchip" id="searchip" value="search"/><br><br>
+				<button type="submit" name="searchip" id="searchip" />search</button><br><br>
 				</form>
 	</center>
 	<?php 
@@ -52,6 +65,7 @@
 						<td>Reason for<br/>change IP</td>
 						<td>Verify<br/>Ip in NULL</td>
 						<td>Old user<br/>detail</td>
+						<td>Issued By</td>
 					</tr>
 				</table>';
 			echo "$text1";
@@ -73,6 +87,7 @@
 							<td>'.$query_execute['reason for change Ip'].'</td>
 							<td>'.$query_execute['verify Ip in NULL'].'</td>
 							<td>'.$query_execute['Old user detail'].'</td>
+							<td>'.$query_execute['Issued By'].'</td>
 						</tr>
 					</table>';
 			echo "$text";

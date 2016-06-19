@@ -14,7 +14,16 @@
 </head>
 <body>
 <img src="img/nic.png" style="width:100%">
+<div class="banner">
+		<center>
+			<a href="logout_authority.php"><p>Logout</p></a>
+		</center>
+</div>
+<button style="height:25px;width:60px;"><a href="authority_portal.php" style="color:#000000; text-decoration:none;">Back</a></button><br>
 <?php 
+	session_start();
+
+	$auth_name=$_SESSION['username'];
 		$val=addslashes($_POST["uname"]);
 		$mysql_host='localhost';
 		$mysql_user='root';
@@ -32,7 +41,14 @@
 		$retval2=mysql_query($sql2,$conn);
 
 		//random IP Address gereneration database code
-		$sql_ip = "SELECT `IP` FROM `nic_worker_info` WHERE username='Free IP Address'"; 
+		$sql="SELECT `division` FROM `nic_worker_info` WHERE flag=1";
+		$retval_sql=mysql_query($sql);
+		if(!$retval_sql){
+			die('connection errror '.mysql_error());
+		}
+		$mquery_sql=mysql_fetch_array($retval_sql);
+		$mDivison=$mquery_sql['division'];
+		$sql_ip = "SELECT `IP` FROM `nic_worker_info` WHERE username='Free IP Address' AND division='$mDivison'"; 
 		$retval_ip=mysql_query($sql_ip);
 		if($retval_ip){
 			$a=array();
@@ -75,7 +91,7 @@
 	<div class="row">
 		<div class="col" style="float:left">
 			<div class="text_field">Ip Add. :</div>
-			<input type="text" id="searchtext1" value="click to get an IP" name="ip" onclick="mFuntion()">
+			<input type="text" id="searchtext1" value="click to get an IP" name="ip" onclick="mFuntion()" required>
 			
 		</div>
 		<div class="col" style="float:right">
@@ -106,7 +122,7 @@
 	<div class="row">
 		<div class="col" style="float:left">
 			<div class="text_field">AntiVirus: </div>
-			<input type="text" id="searchtext7" name="antiVirus">
+			<input type="text" id="searchtext7" name="antiVirus" required>
 		</div>
 		<div class="col" style="float:right">
 			<div class="text_field">MAC: </div>
@@ -116,39 +132,45 @@
 	<div class="row">
 		<div class="col" style="float:left">
 			<div class="text_field">Non Nic/ Coordinator: </div> 
-			<input type="text" id="searchtext9" name="nonNic">
+			<input type="text" id="searchtext9" name="nonNic" required>
 		</div>
 		<div class="col" style="float:right">
 			<div class="text_field">Connected/ Switch: </div>
-			<input type="text" id="searchtext10" name="connectedSwitch">
+			<input type="text" id="searchtext10" name="connectedSwitch" required>
 		</div>
 	</div>
 	<div class="row">
 		<div class="col" style="float:left">
 			<div class="text_field">Issue Date: </div>
-			<input type="text" id="searchtext11" name="issueDate">
+			<input type="text" id="searchtext11" name="issueDate" required>
 		</div>
 		<div class="col" style="float:right">
 			<div class="text_field">Reason for change IP: </div>
-			<input type="text" id="searchtext12" name="changeIp">
+			<input type="text" id="searchtext12" name="changeIp" required>
 		</div>
 	</div>
 	<div class="row">
 		<div class="col" style="float:left">
 			<div class="text_field">Verify IP in NULL: </div>
-			<input type="text" id="searchtext13" name="verifyIp">
+			<input type="text" id="searchtext13" name="verifyIp" required>
 		</div>
 		<div class="col" style="float:right">
 			<div class="text_field">Old user detail: </div>
-			<input type="text" id="searchtext14" name="oldUserDetails">
+			<input type="text" id="searchtext14" name="oldUserDetails" required>
 		</div>
 	</div>
-
+	<div class="row">
+		<div class="col" style="float:left">
+			<div class="text_field">Issued By :  </div>
+			<input type="text" id="searchtext15" name="issuedBy" value='.$auth_name.'>
+		</div>
+	</div>
+	<br><br>
 	<center>
 		<input type="submit" name="add" value="Approve Request"><br/><br/>
 	</center>
 		</div>
-		</form>
+		</form><br><br><br>
 		<center>
 		<button type="submit" id="show_database"><a href="database_view.php">View Database</a></button>
 		</center>

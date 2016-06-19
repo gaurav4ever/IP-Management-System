@@ -1,5 +1,7 @@
 <?php
 session_start();
+if(isset($_SESSION['username']))
+	header('Location: worker_portal.php');
 if(isset($_POST['login']))
 {
 	if((isset($_POST['username']))&& (isset($_POST['password'])))
@@ -36,9 +38,9 @@ if(isset($_POST['login']))
 <div class="wrapper_main">
 		<div class="container">
 			<form action="worker_login.php" method="post">
-			<h3 class="user_text">Worker Login</h3>
-			<input type="text" name="username" id="username" placeholder="Username"><br/>
-			<input type="text" name="password" id="password" placeholder="Password"><br/>
+			<h3 class="user_text">User Login</h3>
+			<input type="text" name="username" id="username" placeholder="Username" autocomplete="off"><br/>
+			<input type="password" name="password" id="password" placeholder="Password"><br/>
 			<button type="submit" name="login" id="submit">Submit</button>
 			</form>
 		</div>

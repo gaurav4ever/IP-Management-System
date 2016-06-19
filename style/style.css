@@ -21,12 +21,13 @@
 	opacity: .3;
 }
 .username{
-	
+	font-family: 'Comfortaa', cursive ;
 	margin-left: 100px;
 	width: 300px;
 	background-color: #f8f8f8;
 }
 .password{
+	font-family: 'Comfortaa', cursive ;
 	margin-top: 20px;
 	margin-left: 100px;
 	width: 300px;
@@ -84,7 +85,7 @@ h3{
 }
 .user_text{
 	color: #ffffff;
-	font-family: sans-serif;
+	font-family: 'Comfortaa', cursive ;
 	font-size: 25px;
 	padding-top: 25px;
 	margin-left: 160px;

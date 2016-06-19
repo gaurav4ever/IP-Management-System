@@ -1,9 +1,14 @@
 <?php
 session_start();
+if(isset($_SESSION['username']))
+	header('Location: authority_portal.php');
+	//echo $_SESSION['username'];
+	
 if(isset($_POST['login']))
 {
 	if((isset($_POST['username']))&& (isset($_POST['password'])))
 	{
+		session_start();
 		include 'connect.php';
 		$username=$_POST['username'];
 		$password=$_POST['password'];
@@ -38,8 +43,8 @@ if(isset($_POST['login']))
 		<div class="container">
 			<form action="authority_login.php" method="post">
 			<h3 class="user_text">Authority Login</h3>
-			<input type="text" name="username" id="username" placeholder="Username"><br/>
-			<input type="text" name="password" id="password" placeholder="Password"><br/>
+			<input type="text" name="username" id="username" placeholder="Username" autocomplete="off"><br/>
+			<input type="password" name="password" id="password" placeholder="Password"><br/>
 			<input type="submit" id="submit" name="login" value="submit">
 			</form>
 		</div>
