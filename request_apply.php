@@ -73,6 +73,11 @@ if(isset($_SESSION['s6'])){
 		?>
 		<form method="post" action="<?php $_PHP_SELF ?>">
 		<img src="img/nic.png" style="width:100%">
+		<div class="banner">
+		<center>
+			<a href="logout_worker.php"><p>Logout</p></a>
+		</center>
+		</div>
 		<button style="height:25px;width:60px;"><a href="worker_portal.php" style="color:#000000;">Back</a></button>
 <div class="container">
 

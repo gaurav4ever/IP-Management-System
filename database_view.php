@@ -24,12 +24,12 @@
 </head>
 <body>
 
-<img src="img/nic.png" style="width:100%;margin-bottom:5px;">
+<img src="img/nic.png" style="width:100%;">
 <div class="banner">
 		<center>
 			<a href="logout_authority.php"><p>Logout</p></a>
 		</center>
-</div><br>
+</div>
 <button style="height:25px;width:60px;"><a href="authority_portal.php" style="color:#000000;text-decoration:none;">Back</a></button>
 
 <center>
