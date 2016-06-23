@@ -3,6 +3,7 @@
 <head>
 	<title>Pending Request</title>
 	<link rel="stylesheet" type="text/css" href="style/style_portal.css">
+	<link href='https://fonts.googleapis.com/css?family=Comfortaa' rel='stylesheet' type='text/css'>
 	<style type="text/css">
 		#temp{
 			visibility: hidden;
@@ -79,6 +80,11 @@
 			die('could not enter data<br>'.mysql_error());
 		}
 		$sql_fetch="SELECT * FROM `NIC_worker_info` WHERE flag=1";
+
+		//current date picker
+		$mydate=getdate(date("U"));
+		$issueDate_val=$mydate['mday'].'/'.$mydate['mon'].'/'.$mydate['year'];
+
 		$retval3=mysql_query($sql_fetch);
 		if($retval3){
 			$mquery=mysql_fetch_assoc($retval3);
@@ -142,7 +148,7 @@
 	<div class="row">
 		<div class="col" style="float:left">
 			<div class="text_field">Issue Date: </div>
-			<input type="text" id="searchtext11" name="issueDate" required>
+			<input type="text" id="searchtext11" name="issueDate" value="'.$issueDate_val.'">
 		</div>
 		<div class="col" style="float:right">
 			<div class="text_field">Reason for change IP: </div>
@@ -165,12 +171,12 @@
 			<input type="text" id="searchtext15" name="issuedBy" value='.$auth_name.'>
 		</div>
 	</div>
-	<br><br>
+	<br>
 	<center>
-		<input type="submit" name="add" value="Approve Request"><br/><br/>
+		<input type="submit" name="add" value="Approve Request"><br/>
 	</center>
 		</div>
-		</form><br><br><br>
+		</form>
 		<center>
 		<button type="submit" id="show_database"><a href="database_view.php">View Database</a></button>
 		</center>

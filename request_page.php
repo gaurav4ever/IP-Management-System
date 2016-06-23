@@ -13,6 +13,7 @@
 		</center>
 </div>
 	<button style="height:25px;width:60px;"><a href="authority_portal.php" style="color:#000000;">Back</a></button><br>
+	<!--<center><a href="request_view.php">Approve a new request.</a></center>-->
 
 <?php 
 
@@ -33,7 +34,9 @@
 			
 			}
 			if($flag==0){
-				echo '<br><br><center>No Pending Request<br><br><a href="authority_portal.php">Back to Portal</a></center>';
+				echo '<br><br><center>No Pending Request<br><br>
+				
+				<a href="authority_portal.php">Back to Portal</a></center>';
 		}
 	} 
 	else{

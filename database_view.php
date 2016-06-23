@@ -20,6 +20,14 @@
 			background-color: #ADD8E6;
 			color: #000000;
 		}
+		.search{
+			float: left;
+			width: 400px;
+		}	
+	.export{
+			float: left;
+			width: 300px;
+		}
 	</style>
 </head>
 <body>
@@ -31,8 +39,8 @@
 		</center>
 </div>
 <button style="height:25px;width:60px;"><a href="authority_portal.php" style="color:#000000;text-decoration:none;">Back</a></button>
-
-<center>
+<br><br>
+<div class="search">
  	<form method="post" action="show.php" action="submit">
 				 Username : 
 				<input type="text" name='searchtext' id="searchtext" placeholder="Enter Username" />
@@ -42,11 +50,41 @@
 				<input type="text" name='searchtextip' id="searchtextip" placeholder="Enter IP" />
 				<button type="submit" name="searchip" id="searchip" />search</button><br><br>
 				</form>
-	</center>
-	<?php 
+</div>
+<div class="filter">
+	<form method="post" action="database_view.php"> 
+		<button type="submit" name="allocated">Allocated</button><br><br>
+		<input type="text" name='search_seagment' id="search_seagment" placeholder="Enter Seagment" />
+		<button type="submit" name="segement_all">All</button>
+		<button type="submit" name="segment_allocated">Allocated</button><br><br>
+		<br>
+	</form>	
+</div>
 
+<div class="export">
+	<a href="ip_view.php"><button>Make XL Sheet</button></a>
+</div>
+	<?php 
+	session_start();
 	require 'connect.php';
-	$query="SELECT * FROM `nic_worker_info`";
+	if(isset($_POST['allocated'])){
+		$query="SELECT * FROM `nic_worker_info` WHERE username<>'Free IP Address' AND IP NOT LIKE 'AA%'";
+	}
+	else if(isset($_POST['segement_all'])){
+		$ip_segment=$_POST['search_seagment'];
+		$query="SELECT * FROM `nic_worker_info` WHERE IP LIKE '$ip_segment%'";
+	}
+	else if(isset($_POST['segment_allocated'])){
+		$ip_segment=$_POST['search_seagment'];
+		$query="SELECT * FROM `nic_worker_info` WHERE username<>'Free IP Address' AND IP LIKE '$ip_segment%'";
+	}
+	else $query="SELECT * FROM `nic_worker_info`";
+	//echo $ip_segment;
+	if($ip_segment=="")
+		$query="SELECT * FROM `nic_worker_info`";
+
+	$_SESSION['query']=$query;
+
 	if($is_query_run=mysql_query($query)){
 
 		$text1='<table>
