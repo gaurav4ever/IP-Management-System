@@ -39,11 +39,12 @@ if(isset($_POST['login']))
 <div class="wrapper_main">
 		<div class="container">
 			<form action="worker_login.php" method="post">
-			<center><h3 class="user_text">User Login</h3></center>
+			<center><h3 class="user_text">User Login</h3>
 			<input type="text" name="username" id="username" placeholder="Username" autocomplete="off"><br/>
 			<input type="password" name="password" id="password" placeholder="Password"><br/>
 			<button type="submit" name="login" id="submit">Submit</button>
 			</form>
+			</center>
 		</div>
 </div>
 

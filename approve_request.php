@@ -53,6 +53,7 @@
 			$sql_del="DELETE FROM `nic_worker_info` WHERE flag=1";
 
 			mysql_select_db("nic database");
+			
 		$retval=mysql_query($sql,$conn);
 		$retval_del=mysql_query($sql_del,$conn);
 		if(!$retval){

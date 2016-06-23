@@ -26,7 +26,7 @@
 				<input type="text" name='searchtext' id="searchtext" placeholder="Enter Username" />
 				<input type="submit" name="search" id="search" value="search"/>
 				<br><br>
-				Ip Address:
+				Ip Address :
 				<input type="text" name='searchtextip' id="searchtextip" placeholder="Enter IP" />
 				<input type="submit" name="searchip" id="searchip" value="search"/><br><br>
 				</form>

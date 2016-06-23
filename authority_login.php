@@ -42,10 +42,11 @@ if(isset($_POST['login']))
 <div class="wrapper_main">
 		<div class="container">
 			<form action="authority_login.php" method="post">
-			<center><h3 class="user_text">Authority Login</h3></center>
+			<center><h3 class="user_text">Authority Login</h3>
 			<input type="text" name="username" id="username" placeholder="Username" autocomplete="off"><br/>
 			<input type="password" name="password" id="password" placeholder="Password"><br/>
 			<input type="submit" id="submit" name="login" value="submit">
+			</center>
 			</form>
 		</div>
 </div>

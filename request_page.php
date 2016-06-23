@@ -21,6 +21,7 @@
 
  	$query="SELECT * FROM `nic_worker_info` WHERE IP LIKE 'AA:%'";
  	$flag=0;
+ 	echo '<center><a href="request_view.php">File a new IP</a></center>';
 	if($is_query_run=mysql_query($query)){
 			while($mquery=mysql_fetch_assoc($is_query_run)){
 				
@@ -34,10 +35,13 @@
 			
 			}
 			if($flag==0){
-				echo '<br><br><center>No Pending Request<br><br>
-				
-				<a href="authority_portal.php">Back to Portal</a></center>';
+					$text='<center><ul class="request_options">
+							<li>No Pending Request</li>
+							<a href="authority_portal.php"><li>Back to Portal</li></a>
+						</ul></center>';
+				echo $text;
 		}
+
 	} 
 	else{
 		echo "<br>query not executed...";

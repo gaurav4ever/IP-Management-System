@@ -1,10 +1,9 @@
-	<!DOCTYPE html>
-	<html>
-	<head>
-		<title>Issued</title>
-		<link rel="stylesheet" type="text/css" href="style/style_portal.css">
-		<style type="text/css">
-		table{
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Print Issued IPs</title>
+	<style type="text/css">
+	table{
 			width: 170%;
 		}
 		td{
@@ -17,20 +16,13 @@
 			font-size: 18px;
 		}
 	</style>
-	</head>
-	<body>
-	<img src="img/nic.png" style="width:100%">
-	<div class="banner">
-		<center>
-			<a href="logout_authority.php"><p>Logout</p></a>
-		</center>
-	</div><br>
-	<button style="height:25px;width:60px;"><a href="authority_portal.php" style="color:#000000; text-decoration:none;">Back</a></button><br><br>
-	<div class="export">
-	<a href="print_ip_issued.php"><button>Download as Excel Sheet</button></a>
-</div><br>
+</head>
+<body>
 	<?php 
+
 	session_start();
+	header("Content-type: application/xls");
+	header("Content-Disposition: attachment; filename=IssuedIps.xls");
 	$auth_name=$_SESSION['username'];
 	require 'connect.php';
 	$query="SELECT * FROM `nic_worker_info` WHERE `Issued By` ='$auth_name'" ;
@@ -85,6 +77,5 @@
 	}
 
  ?>
-	</body>
-	</html>
-	
+</body>
+</html>

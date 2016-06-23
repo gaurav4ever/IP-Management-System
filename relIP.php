@@ -1,32 +1,3 @@
-<?php 
-	session_start();
-	if(isset($_POST['button'])){
-	$auth_name=$_SESSION['username'];
-	require 'connect.php';
-	$ip=$_POST['relip'];
-	$location="";
-	$intercom="";
-	$designation="";
-	$antiVirus="";
-	$mac="";
-	$nonNiC="";
-	$connectSwitch="";
-	$issueDate="";
-	$reasonForChangeIp="";
-	$verfiyIp="";
-	$oldUserDetail="";
-	$issuedby="";
-
-	$query="UPDATE `nic_worker_info` SET `IP`='$ip',`username`='Free IP Address',`location`='$location',`intercom`='$intercom',`designation`='$designation',`antivirus`='$antiVirus',`MAC`='$mac',`Non NIC/ Coordinator`='$nonNiC',`connected/ switch`='$connectSwitch',`issue date`='$issueDate',`reason for change Ip`='$reasonForChangeIp',`verify Ip in NULL`='$verfiyIp',`Old user detail`='$oldUserDetail',`Issued By`='$issuedby' WHERE IP='$ip'" ;
-	if($is_query_run=mysql_query($query)){
-			echo "IP Released Successfully...";
-		}
-	
-	else{
-		echo "IP did not Released!";
-	}
-}
- ?>
 	<!DOCTYPE html>
 	<html>
 	<head>
@@ -60,6 +31,49 @@
  		<input type="text" name="relip">
  		<button type="submit" name="button">Release</button>
  	</form>
+ 	<?php 
+	session_start();
+	if(isset($_POST['button'])){
+		$mysql_host='localhost';
+		$mysql_user='root';
+		$mysql_password='';
+
+		$conn=mysql_connect($mysql_host,$mysql_user,$mysql_password);
+		if((!$conn)){
+			die('could not connect: '.mysql_error());
+		}
+			$auth_name=$_SESSION['username'];
+			$ip=$_POST['relip'];
+			$location=" ";
+			$intercom=" ";
+			$designation=" ";
+			$antiVirus=" ";
+			$mac=" ";
+			$nonNiC=" ";
+			$connectSwitch=" ";
+			$issueDate=" ";
+			$reasonForChangeIp=" ";
+			$verfiyIp=" ";
+			$oldUserDetail=" ";
+			$issuedby=" ";
+
+	
+
+	$query="UPDATE `nic_worker_info` SET `username`='Free IP Address',`location`=' ',`intercom`=' ',`designation`=' ',`antivirus`=' ',`MAC`=' ',`Non NIC/ Coordinator`=' ',`connected/ switch`=' ',`issue date`=' ',`reason for change Ip`='$reasonForChangeIp',`verify Ip in NULL`='$verfiyIp',`Old user detail`='$oldUserDetail',`Issued By`='$issuedby' WHERE IP='$ip'" ;
+
+	mysql_select_db("nic database");
+
+	$retval=mysql_query($query,$conn);
+
+	if(!$retval){
+			die('IP did not Released...<br>'.mysql_error());
+		}
+	else{
+		echo "<br>IP released successfully...";
+	}
+}
+
+ ?>
  	</center>
 	</body>
 	</html>
