@@ -1,3 +1,10 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Update IP</title>
+	<link href='https://fonts.googleapis.com/css?family=Comfortaa' rel='stylesheet' type='text/css'>
+</head>
+<body>
 <?php 
 
 	$mysql_host='localhost';
@@ -36,3 +43,5 @@
 	header('Location: worker_info.php');
 
  ?>
+</body>
+</html>

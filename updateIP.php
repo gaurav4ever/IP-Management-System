@@ -2,15 +2,14 @@
 <html>
 <head>
 	<title>Update IP</title>
-	<link rel="stylesheet" type="text/css" href="style/style_portal.css">
-	<style type="text/css">
-		#temp{
-			visibility: hidden;
-		}
-		.form_request{
-			height: 460px;
-		}
-	</style>
+	<link rel="stylesheet" type="text/css" href="style/jquery.dataTables.min.css">
+    <script src="js/jquery-1.12.3.js"></script>
+    <script type="text/javascript" src="js/jquery.dataTables.min.js"></script>
+ 	<script type="text/javascript">
+       $(document).ready(function() {
+  		  $('#example').DataTable();
+		} );
+	</script>
 </head>
 <body>
 <img src="img/nic.png" style="width:100%">

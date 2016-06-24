@@ -3,20 +3,15 @@
 	<head>
 		<title>Issued</title>
 		<link rel="stylesheet" type="text/css" href="style/style_portal.css">
-		<style type="text/css">
-		table{
-			width: 170%;
-		}
-		td{
-			font-size: 15px;
-			width: 130px;
-			border: 1px solid #d1d1d1;
-		}
-		.names td{
-			color: #3333ff;
-			font-size: 18px;
-		}
-	</style>
+		
+		<link rel="stylesheet" type="text/css" href="jquery.dataTables.min.css">
+    <script src="jquery-1.12.3.js"></script>
+    <script type="text/javascript" src="jquery.dataTables.min.js"></script>
+ 	<script type="text/javascript">
+       $(document).ready(function() {
+  		  $('#example').DataTable();
+		} );
+	</script>
 	</head>
 	<body>
 	<img src="img/nic.png" style="width:100%">
@@ -34,57 +29,57 @@
 	$auth_name=$_SESSION['username'];
 	require 'connect.php';
 	$query="SELECT * FROM `nic_worker_info` WHERE `Issued By` ='$auth_name'" ;
-	if($is_query_run=mysql_query($query)){
-
-		$text1='<table>
-					<tr class="names">
-						<td>IP</td>
-						<td>Username</td>
-						<td>Location</td>
-						<td>Intercom</td>
-						<td>Division</td>
-						<td>Designation</td>
-						<td>Antivirus</td>
-						<td>MAC</td>
-						<td>Non NIC /<br/>Coordinator</td>
-						<td>Connected /<br/>Switch</td>
-						<td>Issue Date</td>
-						<td>Reason for<br/>change IP</td>
-						<td>Verify<br/>Ip in NULL</td>
-						<td>Old user<br/>detail</td>
-						<td>Issued By</td>
+	?>
+	
+		
+		<table id="example" class="display" cellspacing="0" width="100%">
+			<thead>
+					<tr>
+						<th>IP</th>
+						<th>Username</td>
+						<th>Location</th>
+						<th>Intercom</th>
+						<th>Division</th>
+						<th>Designation</th>
+						<th>Antivirus</th>
+						<th>MAC</th>
+						<th>Non NIC /<br/>Coordinator</th>
+						<th>Connected /<br/>Switch</th>
+						<th>Issue Date</th>
+						<th>Reason for<br/>change IP</th>
+						<th>Verify<br/>Ip in NULL</th>
+						<th>Old user<br/>detail</th>
+						<th>Issued By</th>
 					</tr>
-				</table>';
-			echo "$text1";
+				</tread>
+				<tbody>
+			<?php
+			$is_query_run=mysql_query($query);
 		while($query_execute=mysql_fetch_assoc($is_query_run)){
-			//echo 'name: '.$query_execute['Name'].'<br>';
-			$text='<table>
+			?>
+	
 						<tr>
-							<td>'.$query_execute['IP'].'</td>
-							<td>'.$query_execute['username'].'</td>
-							<td>'.$query_execute['location'].'</td>
-							<td>'.$query_execute['intercom'].'</td>
-							<td>'.$query_execute['division'].'</td>
-							<td>'.$query_execute['designation'].'</td>
-							<td>'.$query_execute['antivirus'].'</td>
-							<td>'.$query_execute['MAC'].'</td>
-							<td>'.$query_execute['Non NIC/ Coordinator'].'</td>
-							<td>'.$query_execute['connected/ switch'].'</td>
-							<td>'.$query_execute['issue date'].'</td>
-							<td>'.$query_execute['reason for change Ip'].'</td>
-							<td>'.$query_execute['verify Ip in NULL'].'</td>
-							<td>'.$query_execute['Old user detail'].'</td>
-							<td>'.$query_execute['Issued By'].'</td>
+							<td><?php echo $query_execute['IP'] ?></td>
+							<td><?php echo $query_execute['username'] ?></td>
+							<td><?php echo $query_execute['location'] ?></td>
+							<td><?php echo $query_execute['intercom'] ?></td>
+							<td><?php echo $query_execute['division'] ?></td>
+							<td><?php echo $query_execute['designation'] ?></td>
+							<td><?php echo $query_execute['antivirus'] ?></td>
+							<td><?php echo $query_execute['MAC'] ?></td>
+							<td><?php echo $query_execute['Non NIC/ Coordinator'] ?></td>
+							<td><?php echo $query_execute['connected/ switch'] ?></td>
+							<td><?php echo $query_execute['issue date'] ?></td>
+							<td><?php echo $query_execute['reason for change Ip'] ?></td>
+							<td><?php echo $query_execute['verify Ip in NULL'] ?></td>
+							<td><?php echo $query_execute['Old user detail'] ?></td>
+							<td><?php echo $query_execute['Issued By'] ?></td>
 						</tr>
-					</table>';
-			echo "$text";
+						<?php	
 		}
-	}
-	else{
-		echo "query not executed<br>";
-	}
-
- ?>
+		?>
+		</tbody>
+					</table>
 	</body>
 	</html>
 	
