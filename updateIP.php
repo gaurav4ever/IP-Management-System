@@ -45,10 +45,21 @@
 		$text=$_POST['searchtext'];
 		$ip=$_POST['searchtextip'];
 
+		mysql_select_db("nic database");
 		$sql1="SELECT * FROM `nic_worker_info` WHERE username='$text'";
 		$sql2="SELECT * FROM `nic_worker_info` WHERE ip='$ip'";
+		$sql_ip = "SELECT * FROM `nic_worker_info` WHERE username='Free IP Address'"; 
+		$retval_ip=mysql_query($sql_ip);
+		if($retval_ip){
+			$a=array();
+			while($mquery_ip=mysql_fetch_array($retval_ip)){
+				$b=array($mquery_ip['division'],$mquery_ip['IP']);
+				array_push($a,$b);
+			}
+		}
+		else die("connection error!");
 
-		mysql_select_db("nic database");
+		
 		$retval1=mysql_query($sql1);
 		$retval2=mysql_query($sql2);
 		if(!$retval1 and !$retval2){
@@ -72,7 +83,7 @@
 										</div>
 										<div class="col" style="float:right">
 											<div class="text_field">Ip Add. :</div>
-											<input name="ip" value="'.$mquery1["IP"].'">
+											<input name="ip" id="searchtext1" value="'.$mquery1["IP"].'">
 												
 										</div>
 									</div>
@@ -89,7 +100,13 @@
 									<div class="row">
 										<div class="col" style="float:left">
 											<div class="text_field">Division: </div>
-											<input name="division" value="'.$mquery1['division'].'">
+										
+											<select name="division" id="box" onChange="getIP(this.value)">
+												<option disabled selected>select division</option>
+												<option name=" INOC" onclick="getIP()">INOC</option>
+												<option name="lib" onclick="getIP()">Library</option>
+												<option name="ssk" onclick="getIP()">SSK</option>
+											</select>
 										</div>
 										<div class="col" style="float:right">
 											<div class="text_field">Designation: </div>
@@ -150,7 +167,7 @@
 										</div>
 									</div>
 									<center>
-									<br><br><br><br>
+									<br><br>
 									<button type="submit" name="add">Update</button>
 									</center>
 							</div>
@@ -172,7 +189,7 @@
 										</div>
 										<div class="col" style="float:right">
 											<div class="text_field">Ip Add. :</div>
-											<input name="ip" value="'.$mquery2["IP"].'">
+											<input name="ip" id="searchtext1" value="'.$mquery2["IP"].'">
 												
 										</div>
 									</div>
@@ -189,7 +206,12 @@
 									<div class="row">
 										<div class="col" style="float:left">
 											<div class="text_field">Division: </div>
-											<input name="division" value="'.$mquery2['division'].'">
+											<select name="division" id="box" onChange="getIP(this.value)">
+												<option disabled selected>select division</option>
+												<option name=" INOC" onclick="getIP()">INOC</option>
+												<option name="lib" onclick="getIP()">Library</option>
+												<option name="ssk" onclick="getIP()">SSK</option>
+											</select>
 										</div>
 										<div class="col" style="float:right">
 											<div class="text_field">Designation: </div>
@@ -249,7 +271,7 @@
 											
 										</div>
 									</div>
-									<br><br><br>
+									<br>
 									<button type="submit" name="add">Update</button>
 							</div>
 							</form>
@@ -267,6 +289,18 @@
 
 			var mValue=document.getElementById("temp").value;
 			 document.getElementById("searchtext1").value=mValue;
+		}
+		function getIP(value_division){
+			var products = <?php echo json_encode( $a ) ?>;
+			var p=[];
+			for(var i=0;i<products.length;i++){
+				if(products[i][0]==value_division){
+					p.push(products[i][1]);
+				}
+			}
+			var r=Math.floor((Math.random() * p.length-1) + 1);
+			var ip=p[r];
+			document.getElementById("searchtext1").value=ip;
 		}
 	</script>
 
