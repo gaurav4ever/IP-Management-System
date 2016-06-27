@@ -1,7 +1,7 @@
 	<!DOCTYPE html>
 	<html>
 	<head>
-		<title>Issued</title>
+		<title>Issued IPs</title>
 		<link rel="stylesheet" type="text/css" href="style/style_portal.css">
 		
 		<link rel="stylesheet" type="text/css" href="style/jquery.dataTables.min.css">
@@ -14,7 +14,7 @@
 	</script>
 	</head>
 	<body>
-	<img src="img/nic.png" style="width:100%">
+	<img src="img/nic.png" style="width:120%">
 	<div class="banner">
 		<center>
 			<a href="logout_authority.php"><p>Logout</p></a>
@@ -28,6 +28,7 @@
 	session_start();
 	$auth_name=$_SESSION['username'];
 	require 'connect.php';
+	mysql_select_db('nic database');
 	$query="SELECT * FROM `nic_worker_info` WHERE `Issued By` ='$auth_name' AND isHistory=0" ;
 	?>
 	

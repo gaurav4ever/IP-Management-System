@@ -8,7 +8,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Authority Portal</title>
+	<title>user Portal</title>
 	<link rel="stylesheet" type="text/css" href="style/style_portal.css">
 	<link href='https://fonts.googleapis.com/css?family=Comfortaa' rel='stylesheet' type='text/css'>
 </head>

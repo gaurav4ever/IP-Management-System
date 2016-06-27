@@ -1,16 +1,8 @@
 <?php 
 
-
-		if(isset($_POST['add'])){
-		$mysql_host='localhost';
-		$mysql_user='root';
-		$mysql_password='';
-
-		$conn=mysql_connect($mysql_host,$mysql_user,$mysql_password);
-		if((!$conn)){
-			die('could not connect: '.mysql_error());
-		}
-
+	if(isset($_POST['add'])){
+		require 'connect.php';
+		mysql_select_db("nic database");
 		if(!get_magic_quotes_gpc() )
 			{
 			    $ip=addslashes($_POST['ip']);
@@ -50,14 +42,20 @@
 				$issuedby=strtoupper($_POST['issuedBy']);
 			}
 
-			$sql="UPDATE `nic_worker_info` SET `IP`='$ip',`username`='$username',`location`='$location',`intercom`='$intercom',`division`='$division',`designation`='$designation',`antivirus`='$antiVirus',`MAC`='$mac',`Non NIC/ Coordinator`='$nonNiC',`connected/ switch`='$connectSwitch',`connected port`='$connectPort',`issue date`='$issueDate',`reason for change Ip`='$reasonForChangeIp',`verify Ip in NULL`='$verfiyIp',`Old user detail`='$oldUserDetail',`Issued By`='$issuedby' WHERE IP='$ip'";
+			$sql_user="SELECT * FROM `nic_worker_info` WHERE flag=1";
+			$retval_user=mysql_query($sql_user);
+			if(!$retval_user)die("Server error");
+			$mquery_user=mysql_fetch_array($retval_user);
+			$current_ip_user=$mquery_user['user'];
+
+			$sql="UPDATE `nic_worker_info` SET `IP`='$ip',`username`='$username',`location`='$location',`intercom`='$intercom',`division`='$division',`designation`='$designation',`antivirus`='$antiVirus',`MAC`='$mac',`Non NIC/ Coordinator`='$nonNiC',`connected/ switch`='$connectSwitch',`connected port`='$connectPort',`issue date`='$issueDate',`reason for change Ip`='$reasonForChangeIp',`verify Ip in NULL`='$verfiyIp',`Old user detail`='$oldUserDetail',`Issued By`='$issuedby',`user`='$current_ip_user' WHERE IP='$ip'";
 
 			$sql_del="DELETE FROM `nic_worker_info` WHERE flag=1";
 
-			mysql_select_db("nic database");
 			
-		$retval=mysql_query($sql,$conn);
-		$retval_del=mysql_query($sql_del,$conn);
+			
+		$retval=mysql_query($sql);
+		$retval_del=mysql_query($sql_del);
 		if(!$retval){
 			die('could not enter data<br>'.mysql_error());
 		}
@@ -69,6 +67,5 @@
 		$text='<a href="authority_portal.php">Back to Portal</a>';
 		echo $text;
 		}
-		mysql_close($conn);
 	}
  ?>

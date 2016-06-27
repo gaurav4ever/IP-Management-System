@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Pending Request</title>
+	<title>Request</title>
 	<link rel="stylesheet" type="text/css" href="style/style_portal.css">
 	<link href='https://fonts.googleapis.com/css?family=Comfortaa' rel='stylesheet' type='text/css'>
 	<style type="text/css">
@@ -17,18 +17,13 @@
 	<?php
 	session_start();
 	$user=$_SESSION['username'];
-if(isset($_SESSION['s6'])){
-	header('Location: worker_portal.php');
-}
-	if(isset($_POST['add'])){
-		$mysql_host='localhost';
-		$mysql_user='root';
-		$mysql_password='';
 
-		$conn=mysql_connect($mysql_host,$mysql_user,$mysql_password);
-		if((!$conn)){
-			die('could not connect: '.mysql_error());
-		}
+	if(isset($_SESSION['s6'])){
+		header('Location: worker_portal.php');
+	}
+	if(isset($_POST['add'])){
+	require 'connect.php';
+	mysql_select_db("nic database");
 
 		if(!get_magic_quotes_gpc() )
 			{
@@ -47,26 +42,17 @@ if(isset($_SESSION['s6'])){
 				$designation=$_POST['s5'];
 				$mac=$_POST['s6'];
 		}
-		// if($username==""||$location=="" ||$intercom==""||$division==""||$designation==""||$mac==""){
-		// 	echo "Please Fill All The Fields";
-		// 	header('Location: errors.php');
-		// }
-
-
-
 
 		$sql="INSERT INTO `NIC_worker_info` (`IP`, `username`, `location`, `intercom`, `division`, `designation`, `antivirus`, `MAC`, `Non NIC/ Coordinator`, `connected/ switch`,`connected port` ,`issue date`, `reason for change Ip`, `verify Ip in NULL`, `Old user detail`,`Issued By`,`user`) VALUES ('AA:$mac','$username','$location','$intercom','$division','$designation','','$mac','','','','','','','','','$user')";
 
 		mysql_select_db("nic database");
-		$retval=mysql_query($sql,$conn);
+		$retval=mysql_query($sql);
 		if(!$retval){
 			die('could not enter data<br>'.mysql_error());
 		}
 		$_SESSION['s6']=$mac;
 		echo "Request Applied.<br>";
 		echo '<a href="worker_portal.php">Back To Portal</a>';
-		
-		mysql_close($conn);
 
 	}
 	else{
@@ -115,13 +101,11 @@ if(isset($_SESSION['s6'])){
 		</div>
 		<div class="col" style="float:right">
 			<div class="text_field">MAC* : </div>
-			<input type="text" id="s6" name="s6" required>
+			<input type="text" id="s6" name="s6">
 		</div>
 	</div>
 	<br>
 	<center>
-	
-
 		<button type="submit" id="add" name="add" onmouseover="check()" >Apply Request</button>
 		<p>* : Mandatory Field.</p>
 	</center>	

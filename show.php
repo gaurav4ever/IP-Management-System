@@ -16,7 +16,7 @@
 
 </head>
 <body>
-<img src="img/nic.png" style="width:100%">
+<img src="img/nic.png" style="width:125%">
 <div class="banner">
 		<center>
 			<a href="logout_authority.php"><p>Logout</p></a>
@@ -30,6 +30,7 @@
 		if(isset($_POST['search']) || isset($_POST['searchip'])){
 
 			require 'connect.php';
+			mysql_select_db("nic database");
 			$text=$_POST['searchtext'];
 			$ip=$_POST['searchtextip'];
 			//echo $ip;
@@ -37,7 +38,6 @@
 		$sql1="SELECT * FROM `nic_worker_info` WHERE username='$text'";
 		$sql2="SELECT * FROM `nic_worker_info` WHERE ip='$ip'";
 		
-		mysql_select_db("nic database");
 		$retval1=mysql_query($sql1);
 		$retval2=mysql_query($sql2);
 		if(!$retval1 and !$retval2){
@@ -50,9 +50,8 @@
 
 			//user_info database table
 			$user=$mquery2['user'];
-			$sql_user="SELECT * FROM `user_info` WHERE username='$user'";
-			$retval_user=mysql_query($sql_user);
-			$mquery_user=mysql_fetch_array($retval_user);
+			echo $user;
+			
 			//finished
 			echo "<br><br>";
 			if($text=="" && $ip=="")die("Both field are empty...");
@@ -67,6 +66,8 @@
 						<th>History</th>
 						<th>IP</th>
 						<th>Username</th>
+						<th>Mobile Number</th>
+						<th>Email Id</th>
 						<th>Location</th>
 						<th>Intercom</th>
 						<th>Division</th>
@@ -80,11 +81,19 @@
 						<th>Reason for<br/>change IP</th>
 						<th>Verify<br/>Ip in NULL</th>
 						<th>Old user<br/>detail</th>
+						<th>Issued By</th>
 					</tr>
 				</thead>
 				<tbody>
 				<?php
 				while($mquery1=mysql_fetch_array($retval1)){
+
+				$current_user=$mquery1['user'];
+				$sql_user="SELECT * FROM `user_info` WHERE username='$current_user'";
+				$retval_user=mysql_query($sql_user);
+				if(!$retval_user)die("Server error");
+				$mquery_user=mysql_fetch_array($retval_user);	
+				//print_r($mquery_user);
 				
 					if($mquery1['isHistory']==1){
 						?>
@@ -92,6 +101,8 @@
 							<td><?php echo $mquery1['actionHappened'].' on '.$mquery1['actionDate'] ?></td>
 							<td><?php echo $mquery1['IP'] ?></td>
 							<td><?php echo $mquery1['username'] ?></td>
+							<td><?php echo $mquery_user['mobile number'] ?></td>
+							<td><?php echo $mquery_user['email'] ?></td>
 							<td><?php echo $mquery1['location'] ?></td>
 							<td><?php echo $mquery1['intercom'] ?></td>
 							<td><?php echo $mquery1['division'] ?></td>
@@ -115,6 +126,8 @@
 							<td><?php echo "Latest" ?></td>
 							<td><?php echo $mquery1['IP'] ?></td>
 							<td><?php echo $mquery1['username'] ?></td>
+							<td><?php echo $mquery_user['mobile number'] ?></td>
+							<td><?php echo $mquery_user['email'] ?></td>
 							<td><?php echo $mquery1['location'] ?></td>
 							<td><?php echo $mquery1['intercom'] ?></td>
 							<td><?php echo $mquery1['division'] ?></td>
@@ -129,6 +142,7 @@
 							<td><?php echo $mquery1['verify Ip in NULL'] ?></td>
 							<td><?php echo $mquery1['Old user detail'] ?></td>
 							<td><?php echo $mquery1['Issued By'] ?></td>
+
 						</tr>
 						<?php
 					}
@@ -143,6 +157,8 @@
 						<th>History</th>
 						<th>IP</th>
 						<th>Username</th>
+						<th>Mobile Number</th>
+						<th>Email Id</th>
 						<th>Location</th>
 						<th>Intercom</th>
 						<th>Division</th>
@@ -151,10 +167,12 @@
 						<th>MAC</th>
 						<th>Non NIC /<br/>Coordinator</th>
 						<th>Connected /<br/>Switch</th>
+						<th>Connected Port</th>
 						<th>Issue Date</th>
 						<th>Reason for<br/>change IP</th>
 						<th>Verify<br/>Ip in NULL</th>
 						<th>Old user<br/>detail</th>
+						<th>Issued By</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -164,12 +182,20 @@
 				if(!$retval2_new)die("Server Error");
 
 				while($mquery2_new=mysql_fetch_array($retval2_new)){
+					$current_user=$mquery2_new['user'];
+					$sql_user="SELECT * FROM `user_info` WHERE username='$current_user'";
+					$retval_user=mysql_query($sql_user);
+					if(!$retval_user)die("Server error");
+					$mquery_user=mysql_fetch_array($retval_user);	
+
 					if($mquery2_new['isHistory']==1){
 						?>
 						<tr>
 							<td><?php echo $mquery2_new['actionHappened'].' on '.$mquery2_new['actionDate']; ?></td>
 							<td><?php echo $mquery2_new['IP'] ?></td>
 							<td><?php echo $mquery2_new['username'] ?></td>
+							<td><?php echo $mquery_user['mobile number'] ?></td>
+							<td><?php echo $mquery_user['email'] ?></td>
 							<td><?php echo $mquery2_new['location'] ?></td>
 							<td><?php echo $mquery2_new['intercom'] ?></td>
 							<td><?php echo $mquery2_new['division'] ?></td>
@@ -194,6 +220,8 @@
 							<td><?php echo "Latest" ?></td>
 							<td><?php echo $mquery2_new['IP'] ?></td>
 							<td><?php echo $mquery2_new['username'] ?></td>
+							<td><?php echo $mquery_user['mobile number'] ?></td>
+							<td><?php echo $mquery_user['email'] ?></td>
 							<td><?php echo $mquery2_new['location'] ?></td>
 							<td><?php echo $mquery2_new['intercom'] ?></td>
 							<td><?php echo $mquery2_new['division'] ?></td>

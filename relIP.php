@@ -34,14 +34,9 @@
  	<?php 
 	session_start();
 	if(isset($_POST['button'])){
-		$mysql_host='localhost';
-		$mysql_user='root';
-		$mysql_password='';
-
-		$conn=mysql_connect($mysql_host,$mysql_user,$mysql_password);
-		if((!$conn)){
-			die('could not connect: '.mysql_error());
-		}
+	require 'connect.php';
+	mysql_select_db("nic database");
+	
 			$auth_name=$_SESSION['username'];
 			$ip=$_POST['relip'];
 			$location=" ";
@@ -61,8 +56,6 @@
 			//current date and time
 			date_default_timezone_set("Asia/Kolkata");
 			$action_date=date("Y-m-d h:i:sa");
-
-		mysql_select_db("nic database");
 
 		$sql_current="SELECT * FROM `nic_worker_info` WHERE IP='$ip' AND isHistory=0";
 		$retval_current=mysql_query($sql_current);

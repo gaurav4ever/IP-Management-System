@@ -8,19 +8,11 @@
  	<?php 
  	session_start();
  	$username=$_SESSION['username'];
-	$mysql_host='localhost';
-	$mysql_user='root';
-	$mysql_password='';
-
-	$conn=mysql_connect($mysql_host,$mysql_user,$mysql_password);
-
-	if((!$conn)){
-		die('could not connect to server!'.mysql_error());
-	}
+ 	require 'connect.php';
+ 	mysql_select_db("nic database");
+ 	
 	$sql="SELECT * FROM `user_info` WHERE username='$username'";
-	mysql_select_db("nic database");
-
-	$retavl=mysql_query($sql,$conn);
+	$retavl=mysql_query($sql);
 	if(!$retavl){
 		die("connection_error!");
 	}

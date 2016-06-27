@@ -25,6 +25,7 @@
 	header("Content-Disposition: attachment; filename=IssuedIps.xls");
 	$auth_name=$_SESSION['username'];
 	require 'connect.php';
+	mysql_select_db('nic database');
 	$query="SELECT * FROM `nic_worker_info` WHERE `Issued By` ='$auth_name'" ;
 	if($is_query_run=mysql_query($query)){
 

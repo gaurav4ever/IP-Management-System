@@ -18,6 +18,7 @@
 <?php 
 
 	require 'connect.php';
+	mysql_select_db('nic database');
 
  	$query="SELECT * FROM `nic_worker_info` WHERE IP LIKE 'AA:%'";
  	$flag=0;

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>nic </title>
+	<title>Database</title>
 	
 	<link rel="stylesheet" type="text/css" href="style/style_portal.css">
 	
@@ -16,7 +16,7 @@
 </head>
 <body>
 
-<img src="img/nic.png" style="width:100%;">
+<img src="img/nic.png" style="width:125%;">
 <div class="banner">
 		<center>
 			<a href="logout_authority.php"><p>Logout</p></a>
@@ -57,6 +57,7 @@
 	<?php 
 	session_start();
 	require 'connect.php';
+	mysql_select_db('nic database');
 	if(isset($_POST['allocated'])){
 		$query="SELECT * FROM `nic_worker_info` WHERE username<>'Free IP Address' AND IP NOT LIKE 'AA%' AND isHistory=0";
 	}
@@ -72,11 +73,13 @@
 	?>
 	
 	
-		<table id="example" class="display" cellspacing="0" width="100%">
+		<table id="example" class="display" cellspacing="0" cellpadding="10"  width="100%">
 			<thead>
 					<tr>
 						<th>IP</th>
 						<th>Username</th>
+						<th>Mobile Number</th>
+						<th>Email ID</th>
 						<th>Location</th>
 						<th>Intercom</th>
 						<th>Division</th>
@@ -91,6 +94,7 @@
 						<th>Verify<br/>Ip in NULL</th>
 						<th>Old user<br/>detail</th>
 						<th>Issued By</th>
+						<th>User</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -99,12 +103,20 @@
 		$_SESSION['query']=$query;
 
 		$is_query_run=mysql_query($query);
+		if(!$is_query_run)die("Server error");
 		while($query_execute=mysql_fetch_assoc($is_query_run)){
+				$current_user=$query_execute['user'];
+				$sql_user="SELECT * FROM `user_info` WHERE username='$current_user'";
+				$retval_user=mysql_query($sql_user);
+				if(!$retval_user)die("Server error");
+				$mquery_user=mysql_fetch_array($retval_user);	
 		?>
 				
 						<tr>
 							<td><?php echo $query_execute['IP'] ?></td>
 							<td><?php echo $query_execute['username'] ?></td>
+							<td><?php echo $mquery_user['mobile number'] ?></td>
+							<td><?php echo $mquery_user['email'] ?></td>
 							<td><?php echo $query_execute['location'] ?></td>
 							<td><?php echo $query_execute['intercom'] ?></td>
 							<td><?php echo $query_execute['division'] ?></td>
@@ -119,6 +131,7 @@
 							<td><?php echo $query_execute['verify Ip in NULL'] ?></td>
 							<td><?php echo $query_execute['Old user detail'] ?></td>
 							<td><?php echo $query_execute['Issued By'] ?></td>
+							<td><?php echo $query_execute['user'] ?></td>
 						</tr>		
 		<?php	
 		}

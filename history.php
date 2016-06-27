@@ -96,7 +96,7 @@
 
 
 					//create a new row with new values of previous row
-					$sql_new="UPDATE `nic_worker_info` SET `IP`='$ip',`username`='$username',`location`='$location',`intercom`='$intercom',`division`='$division',`designation`='$designation',`antivirus`='$antiVirus',`MAC`='$mac',`Non NIC/ Coordinator`='$nonNiC',`connected/ switch`='$connectSwitch',`connected port`='$connectPort',`$issue date`='$issueDate',`reason for change Ip`='$reasonForChangeIp',`verify Ip in NULL`='$verifyIp',`Old user detail`='$oldUserDetail',`Issued By`='$issuedby',`user`='$user' WHERE IP='$ip'";
+					$sql_new="UPDATE `nic_worker_info` SET `IP`='$ip',`username`='$username',`location`='$location',`intercom`='$intercom',`division`='$division',`designation`='$designation',`antivirus`='$antiVirus',`MAC`='$mac',`Non NIC/ Coordinator`='$nonNiC',`connected/ switch`='$connectSwitch',`connected port`='$connectPort',`issue date`='$issueDate',`reason for change Ip`='$reasonForChangeIp',`verify Ip in NULL`='$verifyIp',`Old user detail`='$oldUserDetail',`Issued By`='$issuedby',`user`='$user' WHERE IP='$ip'";
 					$retval_new=mysql_query($sql_new);
 					if(!$retval_new)die("Server error");
 

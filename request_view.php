@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Pending Request</title>
+	<title>View Request</title>
 	<link rel="stylesheet" type="text/css" href="style/style_portal.css">
 	<link href='https://fonts.googleapis.com/css?family=Comfortaa' rel='stylesheet' type='text/css'>
 	<style type="text/css">
@@ -31,26 +31,21 @@
 
 	if(isset($_POST['uname'])){
 		$val=addslashes($_POST["uname"]);
-		$mysql_host='localhost';
-		$mysql_user='root';
-		$mysql_password='';
-
-		$conn=mysql_connect($mysql_host,$mysql_user,$mysql_password);
-		if((!$conn)){
-			die('could not connect: '.mysql_error());
-		}
+		
+		require 'connect.php';
+		mysql_select_db('nic database');
 		$sql1="UPDATE `NIC_worker_info` SET `flag`=1 WHERE username='$val';";
-		$sql2="UPDATE `NIC_worker_info` SET `flag`=0 WHERE username<>'$val';";
+		$retval1=mysql_query($sql1);
 
-		mysql_select_db("nic database");
-		$retval1=mysql_query($sql1,$conn);
-		$retval2=mysql_query($sql2,$conn);
+		$sql2="UPDATE `NIC_worker_info` SET `flag`=0 WHERE username<>'$val';";
+		$retval2=mysql_query($sql2);
 
 		//random IP Address gereneration database code
 		$sql="SELECT `division` FROM `nic_worker_info` WHERE flag=1";
 		$retval_sql=mysql_query($sql);
+
 		if(!$retval_sql){
-			die('connection errror!'.mysql_error());
+			die('Server error'.mysql_error());
 		}
 		$mquery_sql=mysql_fetch_array($retval_sql);
 		$mDivison=$mquery_sql['division'];
@@ -81,10 +76,10 @@
 
 
 		if(!$retval1){
-			die('could not enter data<br>'.mysql_error());
+			die('Server error<br>'.mysql_error());
 		}
 		if(!$retval2){
-			die('could not enter data<br>'.mysql_error());
+			die('Server error<br>'.mysql_error());
 		}
 		$sql_fetch="SELECT * FROM `NIC_worker_info` WHERE flag=1";
 		$retval3=mysql_query($sql_fetch);
@@ -196,6 +191,7 @@
 
 	else{
 			include 'connect.php';
+			mysql_select_db('nic database');
 			$sql_ip = "SELECT * FROM `nic_worker_info` WHERE username='Free IP Address'"; 
 		$retval_ip=mysql_query($sql_ip);
 		if($retval_ip){

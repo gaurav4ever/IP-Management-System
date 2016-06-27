@@ -28,13 +28,12 @@
 	session_start();
 		if(isset($_POST['search']) || isset($_POST['searchip'])){
 		require 'connect.php';
-		
+		mysql_select_db("nic database");
+
 		$text=$_POST['searchtext'];
 		$ip=$_POST['searchtextip'];
 		$_SESSION['text']=$text;
 		$_SESSION['ip']=$ip;
-
-		mysql_select_db("nic database");
 
 		$sql1="SELECT * FROM `nic_worker_info` WHERE username='$text' AND isHistory=0";
 		$sql2="SELECT * FROM `nic_worker_info` WHERE ip='$ip' AND isHistory=0";
@@ -286,8 +285,7 @@
 									<div class="row">
 									<div class="col" style="float:left">
 											<div class="text_field">Connected Port: </div>
-											<input name="connectedPort" value="'.$mquery1['connected port'].'">
-											
+											<input name="connectedPort" value="'.$mquery2['connected port'].'">
 										</div>
 									</div>
 									<br>

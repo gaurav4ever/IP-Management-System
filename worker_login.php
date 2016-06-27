@@ -7,8 +7,11 @@ if(isset($_POST['login']))
 	if((isset($_POST['username']))&& (isset($_POST['password'])))
 	{
 		include 'connect.php';
+		mysql_select_db('nic database');
+		
 		$username=$_POST['username'];
 		$password=$_POST['password'];
+		
 		$query="SELECT * From `user_info` WHERE username='$username'";
 		$query_run=mysql_query($query);
 		if($query_run){
@@ -27,7 +30,7 @@ if(isset($_POST['login']))
 <!DOCTYPE html>
 <html>
 <head>
-	<title>NIC Webapp</title>
+	<title>User Login</title>
 	
 	<link href="style/style.css" type="text/css" rel="stylesheet">
 	<link href='https://fonts.googleapis.com/css?family=Comfortaa' rel='stylesheet' type='text/css'>

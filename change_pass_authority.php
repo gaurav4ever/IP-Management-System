@@ -22,8 +22,9 @@
 			$new_pass=$_POST['new_pass'];
 			$confirm_new_pass=$_POST['confirm_new_pass'];
 			if($new_pass==$confirm_new_pass){
-				include 'connect.php';
+				require 'connect.php';
 				echo "hello";
+				
 				//matching old password with database password
 				mysql_select_db('nic database');
 				$sql="SELECT `password` FROM `authority_info` WHERE username='$username'";

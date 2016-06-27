@@ -1,3 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Authority login</title>
+	
+	<link href="style/style.css" type="text/css" rel="stylesheet">
+	<link href='https://fonts.googleapis.com/css?family=Comfortaa' rel='stylesheet' type='text/css'>
+	
+</head>
+<body>
+<img src="img/nic.png" style="width:100%;">
 <?php
 session_start();
 if(isset($_SESSION['username']))
@@ -12,6 +23,7 @@ if(isset($_POST['login']))
 		include 'connect.php';
 		$username=$_POST['username'];
 		$password=$_POST['password'];
+		mysql_select_db('nic database');
 		$query="SELECT * From `authority_info` WHERE username='$username'";
 		$query_run=mysql_query($query);
 		if($query_run){
@@ -27,18 +39,6 @@ if(isset($_POST['login']))
 	}
 }
 ?>
-
-<!DOCTYPE html>
-<html>
-<head>
-	<title>NIC Webapp</title>
-	
-	<link href="style/style.css" type="text/css" rel="stylesheet">
-	<link href='https://fonts.googleapis.com/css?family=Comfortaa' rel='stylesheet' type='text/css'>
-	
-</head>
-<body>
-<img src="img/nic.png" style="width:100%;">
 <div class="wrapper_main">
 		<div class="container">
 			<form action="authority_login.php" method="post">
@@ -50,9 +50,5 @@ if(isset($_POST['login']))
 			</form>
 		</div>
 </div>
-
-
-
-
 </body>
 </html>
