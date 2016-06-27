@@ -28,7 +28,7 @@
 	session_start();
 	$auth_name=$_SESSION['username'];
 	require 'connect.php';
-	$query="SELECT * FROM `nic_worker_info` WHERE `Issued By` ='$auth_name'" ;
+	$query="SELECT * FROM `nic_worker_info` WHERE `Issued By` ='$auth_name' AND isHistory=0" ;
 	?>
 	
 		
@@ -45,6 +45,7 @@
 						<th>MAC</th>
 						<th>Non NIC /<br/>Coordinator</th>
 						<th>Connected /<br/>Switch</th>
+						<th>Connected <br/>Port</th>
 						<th>Issue Date</th>
 						<th>Reason for<br/>change IP</th>
 						<th>Verify<br/>Ip in NULL</th>
@@ -69,6 +70,7 @@
 							<td><?php echo $query_execute['MAC'] ?></td>
 							<td><?php echo $query_execute['Non NIC/ Coordinator'] ?></td>
 							<td><?php echo $query_execute['connected/ switch'] ?></td>
+							<td><?php echo $query_execute['connected port'] ?></td>
 							<td><?php echo $query_execute['issue date'] ?></td>
 							<td><?php echo $query_execute['reason for change Ip'] ?></td>
 							<td><?php echo $query_execute['verify Ip in NULL'] ?></td>

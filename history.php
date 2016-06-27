@@ -8,39 +8,41 @@
 		$marray=array();
 		if(!get_magic_quotes_gpc() )
 			{
-			    $ip=addslashes($_POST['ip']);array_push($marray, $ip);
-				$username=strtoupper(addslashes($_POST['username']));array_push($marray, $username);
-				$location=strtoupper(addslashes($_POST['location']));array_push($marray, $location);
-				$intercom=strtoupper(addslashes($_POST['intercom']));array_push($marray, $intercom);
-				$division=strtoupper(addslashes($_POST['division']));array_push($marray, $division);
-				$designation=strtoupper(addslashes($_POST['designation']));array_push($marray, $designation);
-				$antiVirus=strtoupper(addslashes($_POST['antiVirus']));array_push($marray, $antiVirus);
-				$mac=addslashes($_POST['mac']);array_push($marray, $mac);
-				$nonNiC=strtoupper(addslashes($_POST['nonNic']));array_push($marray, $nonNiC);
-				$connectSwitch=strtoupper(addslashes($_POST['connectedSwitch']));array_push($marray, $connectSwitch);
-				$issueDate=strtoupper(addslashes($_POST['issueDate']));array_push($marray, $issueDate);
-				$reasonForChangeIp=strtoupper(addslashes($_POST['changeIp']));array_push($marray, $reasonForChangeIp);
-				$verifyIp=strtoupper(addslashes($_POST['verifyIp']));array_push($marray, $verifyIp);
-				$oldUserDetail=strtoupper(addslashes($_POST['oldUserDetails']));array_push($marray, $oldUserDetail);
-				$issuedby=strtoupper(addslashes($_POST['issuedBy']));array_push($marray, $issuedby);
+			    $ip=addslashes($_POST['ip']);
+				$username=strtoupper(addslashes($_POST['username']));
+				$location=strtoupper(addslashes($_POST['location']));
+				$intercom=strtoupper(addslashes($_POST['intercom']));
+				$division=strtoupper(addslashes($_POST['division']));
+				$designation=strtoupper(addslashes($_POST['designation']));
+				$antiVirus=strtoupper(addslashes($_POST['antiVirus']));
+				$mac=addslashes($_POST['mac']);
+				$nonNiC=strtoupper(addslashes($_POST['nonNic']));
+				$connectSwitch=strtoupper(addslashes($_POST['connectedSwitch']));
+				$connectPort=strtoupper(addslashes($_POST['connectedPort']));
+				$issueDate=strtoupper(addslashes($_POST['issueDate']));
+				$reasonForChangeIp=strtoupper(addslashes($_POST['changeIp']));
+				$verifyIp=strtoupper(addslashes($_POST['verifyIp']));
+				$oldUserDetail=strtoupper(addslashes($_POST['oldUserDetails']));
+				$issuedby=strtoupper(addslashes($_POST['issuedBy']));
 
 			}
 			else{
-				$ip=$_POST['ip'];array_push($marray, $ip);
-				$username=strtoupper($_POST['username']);array_push($marray, $username);
-				$location=strtoupper($_POST['location']);array_push($marray, $location);
-				$intercom=strtoupper($_POST['intercom']);array_push($marray, $intercom);
-				$division=strtoupper($_POST['division']);array_push($marray, $division);
-				$designation=strtoupper($_POST['designation']);array_push($marray, $designation);
-				$antiVirus=strtoupper($_POST['antiVirus']);array_push($marray, $antiVirus);
-				$nonNiC=strtoupper($_POST['nonNic']);array_push($marray, $mac);
-				$mac=$_POST['mac'];array_push($marray, $nonNic);
-				$issueDate=strtoupper($_POST['issueDate']);array_push($marray, $connectedSwitch);
-				$connectSwitch=strtoupper($_POST['connectedSwitch']);array_push($marray, $issueDate);
-				$reasonForChangeIp=strtoupper($_POST['changeIp']);array_push($marray, $reasonForChangeIp);
-				$verifyIp=strtoupper($_POST['verifyIp']);array_push($marray, $verfiyIp);
-				$oldUserDetail=strtoupper($_POST['oldUserDetails']);array_push($marray, $oldUserDetails);
-				$issuedby=strtoupper($_POST['issuedBy']);array_push($marray, $issuedby);
+				$ip=$_POST['ip'];
+				$username=strtoupper($_POST['username']);
+				$location=strtoupper($_POST['location']);
+				$intercom=strtoupper($_POST['intercom']);
+				$division=strtoupper($_POST['division']);
+				$designation=strtoupper($_POST['designation']);
+				$antiVirus=strtoupper($_POST['antiVirus']);
+				$nonNiC=strtoupper($_POST['nonNic']);
+				$mac=$_POST['mac'];
+				$issueDate=strtoupper($_POST['issueDate']);
+				$connectSwitch=strtoupper($_POST['connectedSwitch']);
+				$connectPort=strtoupper(addslashes($_POST['connectedPort']));
+				$reasonForChangeIp=strtoupper($_POST['changeIp']);
+				$verifyIp=strtoupper($_POST['verifyIp']);
+				$oldUserDetail=strtoupper($_POST['oldUserDetails']);
+				$issuedby=strtoupper($_POST['issuedBy']);
 			}
 
 			//print_r($marray);
@@ -75,7 +77,7 @@
 					if(!$retval_old)die("Server error");
 
 					//create a new row including all the change values
-					$sql_new="INSERT INTO `nic_worker_info`(`IP`, `username`, `location`, `intercom`, `division`, `designation`, `antivirus`, `MAC`, `Non NIC/ Coordinator`, `connected/ switch`, `issue date`, `reason for change Ip`, `verify Ip in NULL`, `Old user detail`, `Issued By`, `user`) VALUES ('$ip','$username','$location','$intercom','$division','$designation','$antiVirus','$mac','$nonNiC','$connectSwitch','$issueDate','$reasonForChangeIp','$verifyIp','$oldUserDetail','$issuedby','$user')";
+					$sql_new="INSERT INTO `nic_worker_info`(`IP`, `username`, `location`, `intercom`, `division`, `designation`, `antivirus`, `MAC`, `Non NIC/ Coordinator`, `connected/ switch`,`connected port`, `issue date`, `reason for change Ip`, `verify Ip in NULL`, `Old user detail`, `Issued By`, `user`) VALUES ('$ip','$username','$location','$intercom','$division','$designation','$antiVirus','$mac','$nonNiC','$connectSwitch','$connectPort',$issueDate','$reasonForChangeIp','$verifyIp','$oldUserDetail','$issuedby','$user')";
 					$retval_new=mysql_query($sql_new);
 					if(!$retval_new)die("Server error");
 
@@ -94,7 +96,7 @@
 
 
 					//create a new row with new values of previous row
-					$sql_new="UPDATE `nic_worker_info` SET `IP`='$ip',`username`='$username',`location`='$location',`intercom`='$intercom',`division`='$division',`designation`='$designation',`antivirus`='$antiVirus',`MAC`='$mac',`Non NIC/ Coordinator`='$nonNiC',`connected/ switch`='$connectSwitch',`issue date`='$issueDate',`reason for change Ip`='$reasonForChangeIp',`verify Ip in NULL`='$verifyIp',`Old user detail`='$oldUserDetail',`Issued By`='$issuedby',`user`='$user' WHERE IP='$ip'";
+					$sql_new="UPDATE `nic_worker_info` SET `IP`='$ip',`username`='$username',`location`='$location',`intercom`='$intercom',`division`='$division',`designation`='$designation',`antivirus`='$antiVirus',`MAC`='$mac',`Non NIC/ Coordinator`='$nonNiC',`connected/ switch`='$connectSwitch',`connected port`='$connectPort',`$issue date`='$issueDate',`reason for change Ip`='$reasonForChangeIp',`verify Ip in NULL`='$verifyIp',`Old user detail`='$oldUserDetail',`Issued By`='$issuedby',`user`='$user' WHERE IP='$ip'";
 					$retval_new=mysql_query($sql_new);
 					if(!$retval_new)die("Server error");
 
@@ -124,7 +126,7 @@
 					if(!$retval_old)die("Server error");
 
 					//create a new row with new values of previous row
-					$sql_new="INSERT INTO `nic_worker_info` (`IP`, `username`, `location`, `intercom`, `division`, `designation`, `antivirus`, `MAC`, `Non NIC/ Coordinator`, `connected/ switch`, `issue date`, `reason for change Ip`, `verify Ip in NULL`, `Old user detail`, `Issued By`,`user`) VALUES ('$ip','$username','$location','$intercom','$division','$designation','$antiVirus','$mac','$nonNiC','$connectSwitch','$issueDate','$reasonForChangeIp','$verifyIp','$oldUserDetail','$issuedby','$user')";
+					$sql_new="INSERT INTO `nic_worker_info` (`IP`, `username`, `location`, `intercom`, `division`, `designation`, `antivirus`, `MAC`, `Non NIC/ Coordinator`, `connected/ switch`,`connected port`, `issue date`, `reason for change Ip`, `verify Ip in NULL`, `Old user detail`, `Issued By`,`user`) VALUES ('$ip','$username','$location','$intercom','$division','$designation','$antiVirus','$mac','$nonNiC','$connectSwitch','$connectPort','$issueDate','$reasonForChangeIp','$verifyIp','$oldUserDetail','$issuedby','$user')";
 					$retval_new=mysql_query($sql_new);
 					if(!$retval_new)die("hello Server error".mysql_error());
 
@@ -141,7 +143,8 @@
 					$retval_new_free_ip=mysql_query($sql_new_free_ip);
 					if(!$retval_new_free_ip)die("Server error");
 
-					$sql_new="UPDATE `nic_worker_info` SET `IP`='$ip',`username`='$username',`location`='$location',`intercom`='$intercom',`division`='$division',`designation`='$designation',`antivirus`='$antiVirus',`MAC`='$mac',`Non NIC/ Coordinator`='$nonNiC',`connected/ switch`='$connectSwitch',`issue date`='$issueDate',`reason for change Ip`='$reasonForChangeIp',`verify Ip in NULL`='$verifyIp',`Old user detail`='$oldUserDetail',`Issued By`='$issuedby',`user`='$user' WHERE IP='$ip'";
+					//create a new row with new values of previous row
+					$sql_new="UPDATE `nic_worker_info` SET `IP`='$ip',`username`='$username',`location`='$location',`intercom`='$intercom',`division`='$division',`designation`='$designation',`antivirus`='$antiVirus',`MAC`='$mac',`Non NIC/ Coordinator`='$nonNiC',`connected/ switch`='$connectSwitch',`connected port`='$connectPort',`issue date`='$issueDate',`reason for change Ip`='$reasonForChangeIp',`verify Ip in NULL`='$verifyIp',`Old user detail`='$oldUserDetail',`Issued By`='$issuedby',`user`='$user' WHERE IP='$ip'";
 
 					$retval_new=mysql_query($sql_new);
 					if(!$retval_new)die("Server error");

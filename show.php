@@ -75,6 +75,7 @@
 						<th>MAC</th>
 						<th>Non NIC /<br/>Coordinator</th>
 						<th>Connected /<br/>Switch</th>
+						<th>Connected <br/>Port</th>
 						<th>Issue Date</th>
 						<th>Reason for<br/>change IP</th>
 						<th>Verify<br/>Ip in NULL</th>
@@ -99,6 +100,7 @@
 							<td><?php echo $mquery1['MAC'] ?></td>
 							<td><?php echo $mquery1['Non NIC/ Coordinator'] ?></td>
 							<td><?php echo $mquery1['connected/ switch'] ?></td>
+							<td><?php echo $mquery1['connected port'] ?></td>
 							<td><?php echo $mquery1['issue date'] ?></td>
 							<td><?php echo $mquery1['reason for change Ip'] ?></td>
 							<td><?php echo $mquery1['verify Ip in NULL'] ?></td>
@@ -121,6 +123,7 @@
 							<td><?php echo $mquery1['MAC'] ?></td>
 							<td><?php echo $mquery1['Non NIC/ Coordinator'] ?></td>
 							<td><?php echo $mquery1['connected/ switch'] ?></td>
+							<td><?php echo $mquery1['connected port'] ?></td>
 							<td><?php echo $mquery1['issue date'] ?></td>
 							<td><?php echo $mquery1['reason for change Ip'] ?></td>
 							<td><?php echo $mquery1['verify Ip in NULL'] ?></td>
@@ -175,6 +178,7 @@
 							<td><?php echo $mquery2_new['MAC'] ?></td>
 							<td><?php echo $mquery2_new['Non NIC/ Coordinator'] ?></td>
 							<td><?php echo $mquery2_new['connected/ switch'] ?></td>
+							<td><?php echo $mquery2_new['connected port'] ?></td>
 							<td><?php echo $mquery2_new['issue date'] ?></td>
 							<td><?php echo $mquery2_new['reason for change Ip'] ?></td>
 							<td><?php echo $mquery2_new['verify Ip in NULL'] ?></td>
@@ -198,6 +202,7 @@
 							<td><?php echo $mquery2_new['MAC'] ?></td>
 							<td><?php echo $mquery2_new['Non NIC/ Coordinator'] ?></td>
 							<td><?php echo $mquery2_new['connected/ switch'] ?></td>
+							<td><?php echo $mquery2_new['connected port'] ?></td>
 							<td><?php echo $mquery2_new['issue date'] ?></td>
 							<td><?php echo $mquery2_new['reason for change Ip'] ?></td>
 							<td><?php echo $mquery2_new['verify Ip in NULL'] ?></td>

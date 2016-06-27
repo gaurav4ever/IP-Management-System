@@ -23,6 +23,7 @@
 				$mac=addslashes($_POST['mac']);
 				$nonNiC=strtoupper(addslashes($_POST['nonNic']));
 				$connectSwitch=strtoupper(addslashes($_POST['connectedSwitch']));
+				$connectPort=strtoupper(addslashes($_POST['connectedPort']));
 				$issueDate=strtoupper(addslashes($_POST['issueDate']));
 				$reasonForChangeIp=strtoupper(addslashes($_POST['changeIp']));
 				$verfiyIp=strtoupper(addslashes($_POST['verifyIp']));
@@ -42,13 +43,14 @@
 				$mac=$_POST['mac'];
 				$issueDate=strtoupper($_POST['issueDate']);
 				$connectSwitch=strtoupper($_POST['connectedSwitch']);
+				$connectPort=strtoupper(addslashes($_POST['connectedPort']));
 				$reasonForChangeIp=strtoupper($_POST['changeIp']);
 				$verfiyIP=strtoupper($_POST['verfiyIp']);
 				$oldUserDetail=strtoupper($_POST['oldUserDetails']);
 				$issuedby=strtoupper($_POST['issuedBy']);
 			}
 
-			$sql="UPDATE `nic_worker_info` SET `IP`='$ip',`username`='$username',`location`='$location',`intercom`='$intercom',`division`='$division',`designation`='$designation',`antivirus`='$antiVirus',`MAC`='$mac',`Non NIC/ Coordinator`='$nonNiC',`connected/ switch`='$connectSwitch',`issue date`='$issueDate',`reason for change Ip`='$reasonForChangeIp',`verify Ip in NULL`='$verfiyIp',`Old user detail`='$oldUserDetail',`Issued By`='$issuedby' WHERE IP='$ip'";
+			$sql="UPDATE `nic_worker_info` SET `IP`='$ip',`username`='$username',`location`='$location',`intercom`='$intercom',`division`='$division',`designation`='$designation',`antivirus`='$antiVirus',`MAC`='$mac',`Non NIC/ Coordinator`='$nonNiC',`connected/ switch`='$connectSwitch',`connected port`='$connectPort',`issue date`='$issueDate',`reason for change Ip`='$reasonForChangeIp',`verify Ip in NULL`='$verfiyIp',`Old user detail`='$oldUserDetail',`Issued By`='$issuedby' WHERE IP='$ip'";
 
 			$sql_del="DELETE FROM `nic_worker_info` WHERE flag=1";
 

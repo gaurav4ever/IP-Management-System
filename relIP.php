@@ -51,27 +51,42 @@
 			$mac=" ";
 			$nonNiC=" ";
 			$connectSwitch=" ";
+			$connectPort=" ";
 			$issueDate=" ";
 			$reasonForChangeIp=" ";
 			$verfiyIp=" ";
 			$oldUserDetail=" ";
 			$issuedby=" ";
 
-	
+			//current date and time
+			date_default_timezone_set("Asia/Kolkata");
+			$action_date=date("Y-m-d h:i:sa");
 
-	$query="UPDATE `nic_worker_info` SET `username`='Free IP Address',`location`=' ',`intercom`=' ',`designation`=' ',`antivirus`=' ',`MAC`=' ',`Non NIC/ Coordinator`=' ',`connected/ switch`=' ',`issue date`=' ',`reason for change Ip`='$reasonForChangeIp',`verify Ip in NULL`='$verfiyIp',`Old user detail`='$oldUserDetail',`Issued By`='$issuedby' WHERE IP='$ip'" ;
+		mysql_select_db("nic database");
 
-	mysql_select_db("nic database");
+		$sql_current="SELECT * FROM `nic_worker_info` WHERE IP='$ip' AND isHistory=0";
+		$retval_current=mysql_query($sql_current);
+		if(!$retval_current)die("Server error");
+		$mquery_current=mysql_fetch_array($retval_current);
+		$division=$mquery_current['division'];
 
-	$retval=mysql_query($query,$conn);
+		if($mquery_current['username']!='Free IP Address'){
 
-	if(!$retval){
-			die('IP did not Released...<br>'.mysql_error());
-		}
-	else{
-		echo "<br>IP released successfully...";
+		$sql_old="UPDATE `nic_worker_info` SET `isHistory`=1 , `actionHappened`='released' , `actionDate`='$action_date' WHERE IP='$ip' AND isHistory=0";
+		$retval_old=mysql_query($sql_old);
+		if(!$retval_old)die("Server error");
+
+		
+
+		$query_new="INSERT INTO `nic_worker_info` (`IP`,`username`,`division`) VALUES ('$ip','Free IP Address','$division')";
+		$retval_new=mysql_query($query_new);
+		if(!$retval_new)die("Server Error");
+		echo "<br>IP released Successfully...";
 	}
-}
+	else echo "<br>IP is already free...";
+		
+	}
+
 
  ?>
  	</center>

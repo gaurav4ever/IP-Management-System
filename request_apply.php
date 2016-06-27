@@ -55,7 +55,7 @@ if(isset($_SESSION['s6'])){
 
 
 
-		$sql="INSERT INTO `NIC_worker_info` (`IP`, `username`, `location`, `intercom`, `division`, `designation`, `antivirus`, `MAC`, `Non NIC/ Coordinator`, `connected/ switch`, `issue date`, `reason for change Ip`, `verify Ip in NULL`, `Old user detail`,`Issued By`,`user`) VALUES ('AA:$mac','$username','$location','$intercom','$division','$designation','','$mac','','','','','','','','$user')";
+		$sql="INSERT INTO `NIC_worker_info` (`IP`, `username`, `location`, `intercom`, `division`, `designation`, `antivirus`, `MAC`, `Non NIC/ Coordinator`, `connected/ switch`,`connected port` ,`issue date`, `reason for change Ip`, `verify Ip in NULL`, `Old user detail`,`Issued By`,`user`) VALUES ('AA:$mac','$username','$location','$intercom','$division','$designation','','$mac','','','','','','','','','$user')";
 
 		mysql_select_db("nic database");
 		$retval=mysql_query($sql,$conn);

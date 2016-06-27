@@ -172,6 +172,11 @@
 			<div class="text_field">Issued By :  </div>
 			<input type="text" id="searchtext15" name="issuedBy" value='.$auth_name.'>
 		</div>
+		<div class="col" style="float:right">
+			<div class="text_field">Connected Port: </div>
+			<input type="text" id="searchtext16" name="connectedPort" required>
+		</div>
+
 	</div>
 	<br>
 	<center>
@@ -291,6 +296,10 @@
 		<div class="col" style="float:left">
 			<div class="text_field">Issued By :  </div>
 			<input type="text" id="searchtext15" name="issuedBy" value='.$auth_name.'>
+		</div>
+		<div class="col" style="float:right">
+			<div class="text_field">Connected Port: </div>
+			<input type="text" id="searchtext16" name="connectedPort" required>
 		</div>
 	</div>
 	<br>

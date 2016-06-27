@@ -38,6 +38,7 @@ require 'connect.php';
 						<td>MAC</td>
 						<td>Non NIC /<br/>Coordinator</td>
 						<td>Connected /<br/>Switch</td>
+						<td>Connected <br/>Port</td>
 						<td>Issue Date</td>
 						<td>Reason for<br/>change IP</td>
 						<td>Verify<br/>Ip in NULL</td>
@@ -60,6 +61,7 @@ require 'connect.php';
 							<td>'.$query_execute['MAC'].'</td>
 							<td>'.$query_execute['Non NIC/ Coordinator'].'</td>
 							<td>'.$query_execute['connected/ switch'].'</td>
+							<td>'.$query_execute['connected port'].'</td>
 							<td>'.$query_execute['issue date'].'</td>
 							<td>'.$query_execute['reason for change Ip'].'</td>
 							<td>'.$query_execute['verify Ip in NULL'].'</td>

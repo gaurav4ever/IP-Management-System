@@ -165,7 +165,12 @@
 											<div class="text_field">Issued By : </div>
 											<input name="issuedBy" value="'.$mquery1['Issued By'].'">
 										</div>
-										<div class="col" style="float:right">
+									
+									</div>
+									<div class="row">
+									<div class="col" style="float:left">
+											<div class="text_field">Connected Port: </div>
+											<input name="connectedPort" value="'.$mquery1['connected port'].'">
 											
 										</div>
 									</div>
@@ -276,6 +281,13 @@
 										<div class="col" style="float:right">
 											<div class="text_field">Issued By : </div>
 											<input name="issuedBy" value="'.$mquery2['Issued By'].'">
+										</div>
+									</div>
+									<div class="row">
+									<div class="col" style="float:left">
+											<div class="text_field">Connected Port: </div>
+											<input name="connectedPort" value="'.$mquery1['connected port'].'">
+											
 										</div>
 									</div>
 									<br>
