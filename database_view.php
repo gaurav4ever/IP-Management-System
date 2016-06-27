@@ -58,17 +58,17 @@
 	session_start();
 	require 'connect.php';
 	if(isset($_POST['allocated'])){
-		$query="SELECT * FROM `nic_worker_info` WHERE username<>'Free IP Address' AND IP NOT LIKE 'AA%'";
+		$query="SELECT * FROM `nic_worker_info` WHERE username<>'Free IP Address' AND IP NOT LIKE 'AA%' AND isHistory=0";
 	}
 	else if(isset($_POST['segement_all'])){
 		$ip_segment=$_POST['search_seagment'];
-		$query="SELECT * FROM `nic_worker_info` WHERE IP LIKE '$ip_segment%'";
+		$query="SELECT * FROM `nic_worker_info` WHERE IP LIKE '$ip_segment%' AND isHistory=0";
 	}
 	else if(isset($_POST['segment_allocated'])){
 		$ip_segment=$_POST['search_seagment'];
 		$query="SELECT * FROM `nic_worker_info` WHERE username<>'Free IP Address' AND IP LIKE '$ip_segment%'";
 	}
-	else $query="SELECT * FROM `nic_worker_info`";
+	else $query="SELECT * FROM `nic_worker_info` WHERE isHistory=0";
 	?>
 	
 	
@@ -76,7 +76,7 @@
 			<thead>
 					<tr>
 						<th>IP</th>
-						<th>Username</td>
+						<th>Username</th>
 						<th>Location</th>
 						<th>Intercom</th>
 						<th>Division</th>
@@ -91,7 +91,7 @@
 						<th>Old user<br/>detail</th>
 						<th>Issued By</th>
 					</tr>
-				</tread>
+				</thead>
 				<tbody>
            
 		<?php
@@ -117,8 +117,7 @@
 							<td><?php echo $query_execute['verify Ip in NULL'] ?></td>
 							<td><?php echo $query_execute['Old user detail'] ?></td>
 							<td><?php echo $query_execute['Issued By'] ?></td>
-						</tr>
-						
+						</tr>		
 		<?php	
 		}
 		?>

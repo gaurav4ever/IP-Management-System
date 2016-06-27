@@ -2,14 +2,8 @@
 <html>
 <head>
 	<title>Update IP</title>
-	<link rel="stylesheet" type="text/css" href="style/jquery.dataTables.min.css">
-    <script src="js/jquery-1.12.3.js"></script>
-    <script type="text/javascript" src="js/jquery.dataTables.min.js"></script>
- 	<script type="text/javascript">
-       $(document).ready(function() {
-  		  $('#example').DataTable();
-		} );
-	</script>
+	<link rel="stylesheet" type="text/css" href="style/style_portal.css">
+	<link href='https://fonts.googleapis.com/css?family=Comfortaa' rel='stylesheet' type='text/css'>
 </head>
 <body>
 <img src="img/nic.png" style="width:100%">
@@ -31,22 +25,21 @@
 				</form>
 	</center>
 <?php 
+	session_start();
 		if(isset($_POST['search']) || isset($_POST['searchip'])){
-		$mysql_host='localhost';
-		$mysql_user='root';
-		$mysql_password='';
-
-		$conn=mysql_connect($mysql_host,$mysql_user,$mysql_password);
-		if((!$conn)){
-			die('could not connect: '.mysql_error());
-			}
+		require 'connect.php';
 		
 		$text=$_POST['searchtext'];
 		$ip=$_POST['searchtextip'];
+		$_SESSION['text']=$text;
+		$_SESSION['ip']=$ip;
 
 		mysql_select_db("nic database");
-		$sql1="SELECT * FROM `nic_worker_info` WHERE username='$text'";
-		$sql2="SELECT * FROM `nic_worker_info` WHERE ip='$ip'";
+
+		$sql1="SELECT * FROM `nic_worker_info` WHERE username='$text' AND isHistory=0";
+		$sql2="SELECT * FROM `nic_worker_info` WHERE ip='$ip' AND isHistory=0";
+
+		//random IP generation function PHP
 		$sql_ip = "SELECT * FROM `nic_worker_info` WHERE username='Free IP Address'"; 
 		$retval_ip=mysql_query($sql_ip);
 		if($retval_ip){
@@ -57,23 +50,25 @@
 			}
 		}
 		else die("connection error!");
-
 		
 		$retval1=mysql_query($sql1);
 		$retval2=mysql_query($sql2);
+
 		if(!$retval1 and !$retval2){
 			die('No such record...<br>'.mysql_error());
 		}
 	
 		else{
-			
 						$mquery2=mysql_fetch_array($retval2);
+
 						if($text=="" && $ip=="")die("Both field are empty...");
 						elseif($text=="")echo "Username field empty...<br> ";
 						elseif($ip=="")echo "IP field empty...<br> ";
 						if($text==$mquery2['username'] || $ip==""){
 							while($mquery1=mysql_fetch_array($retval1)){
-							$text='<form method="post" action="approve_request.php">
+								$ip_array=array($mquery1['IP'],$mquery1['division']);
+								echo $mquery1['division'];
+							$text='<form method="post" action="history.php">
 							<div class="container" style="height:400px;">
 									<div class="row">
 										<div class="col" style="float:left">
@@ -99,65 +94,74 @@
 									<div class="row">
 										<div class="col" style="float:left">
 											<div class="text_field">Division: </div>
+											<input name="division" id="division_text" value="'.$mquery1['division'].'" >
+										</div>
+										<div class="col" style="float:right">
+											<div class="text_field">Division change: </div>
 										
-											<select name="division" id="box" onChange="getIP(this.value)">
-												<option disabled selected>select division</option>
+											<select name="division_select" id="box" onChange="getIP(this.value)">
+												<option onclick="defaultIP()" selected>Default Division</option>
 												<option name=" INOC" onclick="getIP()">INOC</option>
 												<option name="lib" onclick="getIP()">Library</option>
 												<option name="ssk" onclick="getIP()">SSK</option>
 											</select>
 										</div>
-										<div class="col" style="float:right">
+										
+									</div>
+									<div class="row">
+										<div class="col" style="float:left">
 											<div class="text_field">Designation: </div>
 											<input name=" designation" value="'.$mquery1['designation'].'">
 										</div>
-									</div>
-									<div class="row">
-										<div class="col" style="float:left">
+										<div class="col" style="float:right">
 											<div class="text_field">AntiVirus: </div>
 											<input  name="antiVirus" value="'.$mquery1['antivirus'].'">
 										</div>
-										<div class="col" style="float:right">
-											<div class="text_field">MAC: </div>
-											<input name="mac" value="'.$mquery1['MAC'].'">
-										</div>
+										
 									</div>
 									<div class="row">
 										<div class="col" style="float:left">
+											<div class="text_field">MAC: </div>
+											<input name="mac" value="'.$mquery1['MAC'].'">
+										</div>
+										<div class="col" style="float:right">
 											<div class="text_field">Non Nic/ Coordinator: </div> 
 											<input name="nonNic" value="'.$mquery1['Non NIC/ Coordinator'].'">
 										</div>
-										<div class="col" style="float:right">
+										
+									</div>
+									<div class="row">
+										<div class="col" style="float:left">
 											<div class="text_field">Connected/ Switch: </div>
 											<input name="connectedSwitch" value="'.$mquery1['connected/ switch'].'">
 											
 										</div>
-									</div>
-									<div class="row">
-										<div class="col" style="float:left">
+										<div class="col" style="float:right">
 											<div class="text_field">Issue Date: </div>
 											<input name="issueDate" value="'.$mquery1['issue date'].'">
 											
 										</div>
-										<div class="col" style="float:right">
-											<div class="text_field">Reason for change IP: </div>
-											<input name="changeIp" value="'.$mquery1['reason for change Ip'].'">
-										</div>
+										
 									</div>
 									<div class="row">
 										<div class="col" style="float:left">
+											<div class="text_field">Reason for change IP: </div>
+											<input name="changeIp" value="'.$mquery1['reason for change Ip'].'">
+										</div>
+										<div class="col" style="float:right">
 											<div class="text_field">Verify IP in NULL: </div>
 											<input name="verifyIp" value="'.$mquery1['verify Ip in NULL'].'">
 											
 										</div>
-										<div class="col" style="float:right">
+										
+									</div>
+									<div class="row">
+										<div class="col" style="float:left">
 											<div class="text_field">Old user detail: </div>
 											<input name="oldUserDetails" value="'.$mquery1['Old user detail'].'">
 											
 										</div>
-									</div>
-									<div class="row">
-										<div class="col" style="float:left">
+										<div class="col" style="float:right">
 											<div class="text_field">Issued By : </div>
 											<input name="issuedBy" value="'.$mquery1['Issued By'].'">
 										</div>
@@ -177,9 +181,10 @@
 						echo '<br>';
 						}
 						else{
+							$ip_array=array($mquery2['IP'],$mquery2['division']);
 							echo "Username and IP did not match..<br>showing result based on IP<br><br>";
 							$text='
-							<form method="post" action="approve_request.php">
+							<form method="post" action="history.php">
 							<div class="container" style="height:400px;">
 									<div class="row">
 										<div class="col" style="float:left">
@@ -205,73 +210,76 @@
 									<div class="row">
 										<div class="col" style="float:left">
 											<div class="text_field">Division: </div>
-											<select name="division" id="box" onChange="getIP(this.value)">
-												<option disabled selected>select division</option>
+											<input name="division" id="division_text" value="'.$mquery2['division'].'" >
+										</div>
+										<div class="col" style="float:right">
+											<div class="text_field">Division: </div>
+											<select name="division_select" id="box" onChange="getIP(this.value)">
+												<option selected>Default Division</option>
 												<option name=" INOC" onclick="getIP()">INOC</option>
 												<option name="lib" onclick="getIP()">Library</option>
 												<option name="ssk" onclick="getIP()">SSK</option>
 											</select>
 										</div>
-										<div class="col" style="float:right">
+										
+									</div>
+									<div class="row">
+										<div class="col" style="float:left">
 											<div class="text_field">Designation: </div>
 											<input name=" designation" value="'.$mquery2['designation'].'">
 										</div>
-									</div>
-									<div class="row">
-										<div class="col" style="float:left">
+										<div class="col" style="float:right">
 											<div class="text_field">AntiVirus: </div>
 											<input  name="antiVirus" value="'.$mquery2['antivirus'].'">
 										</div>
-										<div class="col" style="float:right">
+										
+									</div>
+									<div class="row">
+										<div class="col" style="float:left">
 											<div class="text_field">MAC: </div>
 											<input name="mac" value="'.$mquery2['MAC'].'">
 										</div>
-									</div>
-									<div class="row">
-										<div class="col" style="float:left">
+										<div class="col" style="float:right">
 											<div class="text_field">Non Nic/ Coordinator: </div> 
 											<input name="nonNic" value="'.$mquery2['Non NIC/ Coordinator'].'">
 										</div>
-										<div class="col" style="float:right">
-											<div class="text_field">Connected/ Switch: </div>
-											<input name="connectedSwitch" value="'.$mquery2['connected/ switch'].'">
-											
-										</div>
 									</div>
 									<div class="row">
 										<div class="col" style="float:left">
+											<div class="text_field">Connected/ Switch: </div>
+											<input name="connectedSwitch" value="'.$mquery2['connected/ switch'].'">
+										</div>
+										<div class="col" style="float:right">
 											<div class="text_field">Issue Date: </div>
 											<input name="issueDate" value="'.$mquery2['issue date'].'">
 											
 										</div>
-										<div class="col" style="float:right">
-											<div class="text_field">Reason for change IP: </div>
-											<input name="changeIp" value="'.$mquery2['reason for change Ip'].'">
-										</div>
 									</div>
 									<div class="row">
 										<div class="col" style="float:left">
+											<div class="text_field">Reason for change IP: </div>
+											<input name="changeIp" value="'.$mquery2['reason for change Ip'].'">
+										</div>
+										<div class="col" style="float:right">
 											<div class="text_field">Verify IP in NULL: </div>
 											<input name="verifyIp" value="'.$mquery2['verify Ip in NULL'].'">
 											
 										</div>
-										<div class="col" style="float:right">
+										
+									</div>
+									<div class="row">
+										<div class="col" style="float:left">
 											<div class="text_field">Old user detail: </div>
 											<input name="oldUserDetails" value="'.$mquery2['Old user detail'].'">
 											
 										</div>
-									</div>
-									<div class="row">
-										<div class="col" style="float:left">
+										<div class="col" style="float:right">
 											<div class="text_field">Issued By : </div>
 											<input name="issuedBy" value="'.$mquery2['Issued By'].'">
 										</div>
-										<div class="col" style="float:right">
-											
-										</div>
 									</div>
 									<br>
-									<button type="submit" name="add">Update</button>
+									<center><button type="submit" name="add">Update</button></center>
 							</div>
 							</form>
 						';
@@ -291,7 +299,15 @@
 		}
 		function getIP(value_division){
 			var products = <?php echo json_encode( $a ) ?>;
+			var ip=<?php echo json_encode($ip_array) ?>;
 			var p=[];
+			//alert(ip[0]+ip[1]);
+			if(value_division=='Default Division'){
+				// alert(ip[0]);
+				document.getElementById("searchtext1").value=ip[0];
+				document.getElementById("division_text").value=ip[1];	
+			}
+			else{
 			for(var i=0;i<products.length;i++){
 				if(products[i][0]==value_division){
 					p.push(products[i][1]);
@@ -300,6 +316,13 @@
 			var r=Math.floor((Math.random() * p.length-1) + 1);
 			var ip=p[r];
 			document.getElementById("searchtext1").value=ip;
+			document.getElementById("division_text").value=document.getElementById("box").value;
+			}
+		}
+		function defaultIP(){
+			var ip=<?php echo json_encode($ip_array) ?>;
+			alert(ip[0]);
+			//document.getElementById("searchtext1").value=;
 		}
 	</script>
 

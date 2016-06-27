@@ -4,6 +4,16 @@
 	<title>Show Details</title>
 	<link rel="stylesheet" type="text/css" href="style/style_portal.css">
 	<link href='https://fonts.googleapis.com/css?family=Comfortaa' rel='stylesheet' type='text/css'>
+
+	<link rel="stylesheet" type="text/css" href="style/jquery.dataTables.min.css">
+    <script src="js/jquery-1.12.3.js"></script>
+    <script type="text/javascript" src="js/jquery.dataTables.min.js"></script>
+ 	<script type="text/javascript">
+       $(document).ready(function() {
+  		  $('#example').DataTable();
+		} );
+	</script>
+
 </head>
 <body>
 <img src="img/nic.png" style="width:100%">
@@ -11,6 +21,8 @@
 		<center>
 			<a href="logout_authority.php"><p>Logout</p></a>
 		</center>
+	<BUTTON>
+		<a href="database_view.php">Go Back</a></BUTTON>
 </div>
 
 <?php 
@@ -20,6 +32,7 @@
 			require 'connect.php';
 			$text=$_POST['searchtext'];
 			$ip=$_POST['searchtextip'];
+			//echo $ip;
 
 		$sql1="SELECT * FROM `nic_worker_info` WHERE username='$text'";
 		$sql2="SELECT * FROM `nic_worker_info` WHERE ip='$ip'";
@@ -33,6 +46,7 @@
 		else{
 			
 			$mquery2=mysql_fetch_array($retval2);
+			//print_r($mquery2);
 
 			//user_info database table
 			$user=$mquery2['user'];
@@ -40,215 +54,169 @@
 			$retval_user=mysql_query($sql_user);
 			$mquery_user=mysql_fetch_array($retval_user);
 			//finished
-
+			echo "<br><br>";
 			if($text=="" && $ip=="")die("Both field are empty...");
 			elseif($text=="")echo "Username field empty...<br> ";
 			elseif($ip=="")echo "IP field empty...<br> ";
 			if($text==$mquery2['username'] || $ip==""){
+
+				?>
+				<table id="example" class="display" cellspacing="0" width="150%">
+			<thead>
+					<tr>
+						<th>History</th>
+						<th>IP</th>
+						<th>Username</th>
+						<th>Location</th>
+						<th>Intercom</th>
+						<th>Division</th>
+						<th>Designation</th>
+						<th>Antivirus</th>
+						<th>MAC</th>
+						<th>Non NIC /<br/>Coordinator</th>
+						<th>Connected /<br/>Switch</th>
+						<th>Issue Date</th>
+						<th>Reason for<br/>change IP</th>
+						<th>Verify<br/>Ip in NULL</th>
+						<th>Old user<br/>detail</th>
+					</tr>
+				</thead>
+				<tbody>
+				<?php
 				while($mquery1=mysql_fetch_array($retval1)){
-
-					//user_info database table
-					$user=$mquery1['user'];
-					$sql_user="SELECT * FROM `user_info` WHERE username='$user'";
-					$retval_user=mysql_query($sql_user);
-					$mquery_user=mysql_fetch_array($retval_user);
-					//finished
-
-				$text='
-					<div class="wrapper" style="width:60%;margin:auto;"> 
-						<h1 class="header">User Details</h1><br/>
-						
-						<div class="row">
-							<div class="col" style="float:left">
-								<div class="text_field">Username: </div>
-								'.$mquery1["username"].'
-							</div>
-							<div class="col" style="float:right">
-								<div class="text_field">Ip Add. :</div>
-								'.$mquery1["IP"].'	
-							</div>
-						</div>
-						<div class="row">
-							<div class="col" style="float:left">
-								<div class="text_field">Mobile No. : </div>
-								'.$mquery_user["mobile number"].'
-							</div>
-							<div class="col" style="float:right">
-								<div class="text_field">Email :</div>
-								'.$mquery_user["email"].'	
-							</div>
-						</div>
-						<div class="row">
-							<div class="col" style="float:left">
-								<div class="text_field">Location: </div>
-								'.$mquery1['location'].'
-							</div>
-							<div class="col" style="float:right">
-								<div class="text_field">Intercom: </div>
-								'.$mquery1['intercom'].'
-							</div>
-						</div>
-						<div class="row">
-							<div class="col" style="float:left">
-								<div class="text_field">Division: </div>
-								'.$mquery1['division'].'
-							</div>
-							<div class="col" style="float:right">
-								<div class="text_field">Designation: </div>
-								'.$mquery1['designation'].'
-							</div>
-						</div>
-						<div class="row">
-							<div class="col" style="float:left">
-								<div class="text_field">AntiVirus: </div>
-								'.$mquery1['antivirus'].'
-							</div>
-							<div class="col" style="float:right">
-								<div class="text_field">MAC: </div>
-								'.$mquery1['MAC'].'
-							</div>
-						</div>
-						<div class="row">
-							<div class="col" style="float:left">
-								<div class="text_field">Non Nic/ Coordinator: </div> 
-								'.$mquery1['Non NIC/ Coordinator'].'
-							</div>
-							<div class="col" style="float:right">
-								<div class="text_field">Connected/ Switch: </div>
-								'.$mquery1['connected/ switch'].'
-							</div>
-						</div>
-						<div class="row">
-							<div class="col" style="float:left">
-								<div class="text_field">Issue Date: </div>
-								'.$mquery1['issue date'].'
-							</div>
-							<div class="col" style="float:right">
-								<div class="text_field">Reason for change IP: </div>
-								'.$mquery1['reason for change Ip'].'
-							</div>
-						</div>
-						<div class="row">
-							<div class="col" style="float:left">
-								<div class="text_field">Verify IP in NULL: </div>
-								'.$mquery1['verify Ip in NULL'].'
-							</div>
-							<div class="col" style="float:right">
-								<div class="text_field">Old user detail: </div>
-								'.$mquery1['Old user detail'].'
-							</div>
-						</div>
-						<div class="row">
-							<div class="col" style="float:left">
-								<div class="text_field">Issued By : </div>
-								'.$mquery1['Issued By'].'
-							</div>
-							<div class="col" style="float:right">
-								
-							</div>
-						</div>
-				</div>
-			';
-			echo $text;	
+				
+					if($mquery1['isHistory']==1){
+						?>
+						<tr>
+							<td><?php echo $mquery1['actionHappened'].' on '.$mquery1['actionDate'] ?></td>
+							<td><?php echo $mquery1['IP'] ?></td>
+							<td><?php echo $mquery1['username'] ?></td>
+							<td><?php echo $mquery1['location'] ?></td>
+							<td><?php echo $mquery1['intercom'] ?></td>
+							<td><?php echo $mquery1['division'] ?></td>
+							<td><?php echo $mquery1['designation'] ?></td>
+							<td><?php echo $mquery1['antivirus'] ?></td>
+							<td><?php echo $mquery1['MAC'] ?></td>
+							<td><?php echo $mquery1['Non NIC/ Coordinator'] ?></td>
+							<td><?php echo $mquery1['connected/ switch'] ?></td>
+							<td><?php echo $mquery1['issue date'] ?></td>
+							<td><?php echo $mquery1['reason for change Ip'] ?></td>
+							<td><?php echo $mquery1['verify Ip in NULL'] ?></td>
+							<td><?php echo $mquery1['Old user detail'] ?></td>
+							<td><?php echo $mquery1['Issued By'] ?></td>
+						</tr>
+						<?php
+					}
+					else{
+						?>
+							<tr>
+							<td><?php echo "Latest" ?></td>
+							<td><?php echo $mquery1['IP'] ?></td>
+							<td><?php echo $mquery1['username'] ?></td>
+							<td><?php echo $mquery1['location'] ?></td>
+							<td><?php echo $mquery1['intercom'] ?></td>
+							<td><?php echo $mquery1['division'] ?></td>
+							<td><?php echo $mquery1['designation'] ?></td>
+							<td><?php echo $mquery1['antivirus'] ?></td>
+							<td><?php echo $mquery1['MAC'] ?></td>
+							<td><?php echo $mquery1['Non NIC/ Coordinator'] ?></td>
+							<td><?php echo $mquery1['connected/ switch'] ?></td>
+							<td><?php echo $mquery1['issue date'] ?></td>
+							<td><?php echo $mquery1['reason for change Ip'] ?></td>
+							<td><?php echo $mquery1['verify Ip in NULL'] ?></td>
+							<td><?php echo $mquery1['Old user detail'] ?></td>
+							<td><?php echo $mquery1['Issued By'] ?></td>
+						</tr>
+						<?php
+					}
 			}
 			echo '<br>';
 			}
 			else{
-				echo "Username and IP did not match..<br>showing result based on IP<br><br>";
-			$text='
-				<div class="container" style="height:400px;">
-						<h1 class="header">User Details</h1><br/>
-						
-						<div class="row">
-							<div class="col" style="float:left">
-								<div class="text_field">Username: </div>
-								'.$mquery2["username"].'
-							</div>
-							<div class="col" style="float:right">
-								<div class="text_field">Ip Add. :</div>
-								'.$mquery2["IP"].'	
-							</div>
-						</div>
-						<div class="row">
-							<div class="col" style="float:left">
-								<div class="text_field">Location: </div>
-								'.$mquery2['location'].'
-							</div>
-							<div class="col" style="float:right">
-								<div class="text_field">Intercom: </div>
-								'.$mquery2['intercom'].'
-							</div>
-						</div>
-						<div class="row">
-							<div class="col" style="float:left">
-								<div class="text_field">Division: </div>
-								'.$mquery2['division'].'
-							</div>
-							<div class="col" style="float:right">
-								<div class="text_field">Designation: </div>
-								'.$mquery2['designation'].'
-							</div>
-						</div>
-						<div class="row">
-							<div class="col" style="float:left">
-								<div class="text_field">AntiVirus: </div>
-								'.$mquery2['antivirus'].'
-							</div>
-							<div class="col" style="float:right">
-								<div class="text_field">MAC: </div>
-								'.$mquery2['MAC'].'
-							</div>
-						</div>
-						<div class="row">
-							<div class="col" style="float:left">
-								<div class="text_field">Non Nic/ Coordinator: </div> 
-								'.$mquery2['Non NIC/ Coordinator'].'
-							</div>
-							<div class="col" style="float:right">
-								<div class="text_field">Connected/ Switch: </div>
-								'.$mquery2['connected/ switch'].'
-							</div>
-						</div>
-						<div class="row">
-							<div class="col" style="float:left">
-								<div class="text_field">Issue Date: </div>
-								'.$mquery2['issue date'].'
-							</div>
-							<div class="col" style="float:right">
-								<div class="text_field">Reason for change IP: </div>
-								'.$mquery2['reason for change Ip'].'
-							</div>
-						</div>
-						<div class="row">
-							<div class="col" style="float:left">
-								<div class="text_field">Verify IP in NULL: </div>
-								'.$mquery2['verify Ip in NULL'].'
-							</div>
-							<div class="col" style="float:right">
-								<div class="text_field">Old user detail: </div>
-								'.$mquery2['Old user detail'].'
-							</div>
-						</div>
-						<div class="row">
-							<div class="col" style="float:left">
-								<div class="text_field">Issued By : </div>
-								'.$mquery2['Issued By'].'
-							</div>
-							<div class="col" style="float:right">
-								
-							</div>
-						</div>
-				</div>
-			';
-			echo $text;
+				?>
+				<table id="example" class="display" cellspacing="0" width="100%">
+				<thead>
+					<tr>
+						<th>History</th>
+						<th>IP</th>
+						<th>Username</th>
+						<th>Location</th>
+						<th>Intercom</th>
+						<th>Division</th>
+						<th>Designation</th>
+						<th>Antivirus</th>
+						<th>MAC</th>
+						<th>Non NIC /<br/>Coordinator</th>
+						<th>Connected /<br/>Switch</th>
+						<th>Issue Date</th>
+						<th>Reason for<br/>change IP</th>
+						<th>Verify<br/>Ip in NULL</th>
+						<th>Old user<br/>detail</th>
+					</tr>
+				</thead>
+				<tbody>
+				<?php
+				$sql2_new="SELECT * FROM `nic_worker_info` WHERE ip='$ip'";
+				$retval2_new=mysql_query($sql2_new);
+				if(!$retval2_new)die("Server Error");
+
+				while($mquery2_new=mysql_fetch_array($retval2_new)){
+					if($mquery2_new['isHistory']==1){
+						?>
+						<tr>
+							<td><?php echo $mquery2_new['actionHappened'].' on '.$mquery2_new['actionDate']; ?></td>
+							<td><?php echo $mquery2_new['IP'] ?></td>
+							<td><?php echo $mquery2_new['username'] ?></td>
+							<td><?php echo $mquery2_new['location'] ?></td>
+							<td><?php echo $mquery2_new['intercom'] ?></td>
+							<td><?php echo $mquery2_new['division'] ?></td>
+							<td><?php echo $mquery2_new['designation'] ?></td>
+							<td><?php echo $mquery2_new['antivirus'] ?></td>
+							<td><?php echo $mquery2_new['MAC'] ?></td>
+							<td><?php echo $mquery2_new['Non NIC/ Coordinator'] ?></td>
+							<td><?php echo $mquery2_new['connected/ switch'] ?></td>
+							<td><?php echo $mquery2_new['issue date'] ?></td>
+							<td><?php echo $mquery2_new['reason for change Ip'] ?></td>
+							<td><?php echo $mquery2_new['verify Ip in NULL'] ?></td>
+							<td><?php echo $mquery2_new['Old user detail'] ?></td>
+							<td><?php echo $mquery2_new['Issued By'] ?></td>
+						</tr>
+
+						<?php
+					}
+					else{
+						?>
+						<tr>
+							<td><?php echo "Latest" ?></td>
+							<td><?php echo $mquery2_new['IP'] ?></td>
+							<td><?php echo $mquery2_new['username'] ?></td>
+							<td><?php echo $mquery2_new['location'] ?></td>
+							<td><?php echo $mquery2_new['intercom'] ?></td>
+							<td><?php echo $mquery2_new['division'] ?></td>
+							<td><?php echo $mquery2_new['designation'] ?></td>
+							<td><?php echo $mquery2_new['antivirus'] ?></td>
+							<td><?php echo $mquery2_new['MAC'] ?></td>
+							<td><?php echo $mquery2_new['Non NIC/ Coordinator'] ?></td>
+							<td><?php echo $mquery2_new['connected/ switch'] ?></td>
+							<td><?php echo $mquery2_new['issue date'] ?></td>
+							<td><?php echo $mquery2_new['reason for change Ip'] ?></td>
+							<td><?php echo $mquery2_new['verify Ip in NULL'] ?></td>
+							<td><?php echo $mquery2_new['Old user detail'] ?></td>
+							<td><?php echo $mquery2_new['Issued By'] ?></td>
+						</tr>
+						<?php
+					}
+
+				}
+				?>
+				</tbody>
+				</table>
+				<?php
 		}
 	}
 	}
  ?><br>
-<center>
-	<BUTTON>
-		<a href="database_view.php">Go Back</a></BUTTON>
-</center>
+
 
 </body>
 </html>
