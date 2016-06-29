@@ -16,7 +16,7 @@
 
 </head>
 <body>
-<img src="img/nic.png" style="width:125%">
+<img src="img/nic.png" style="width:150%">
 <div class="banner">
 		<center>
 			<a href="logout_authority.php"><p>Logout</p></a>

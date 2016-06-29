@@ -10,6 +10,8 @@
 			{
 			    $ip=addslashes($_POST['ip']);
 				$username=strtoupper(addslashes($_POST['username']));
+				$mno=strtoupper(addslashes($_POST['mobile']));
+				$email=strtolower(addslashes($_POST['email']);
 				$location=strtoupper(addslashes($_POST['location']));
 				$intercom=strtoupper(addslashes($_POST['intercom']));
 				$division=strtoupper(addslashes($_POST['division']));
@@ -29,6 +31,8 @@
 			else{
 				$ip=$_POST['ip'];
 				$username=strtoupper($_POST['username']);
+				$mno=strtoupper($_POST['mobile']);
+				$email=strtolower($_POST['email']);
 				$location=strtoupper($_POST['location']);
 				$intercom=strtoupper($_POST['intercom']);
 				$division=strtoupper($_POST['division']);
@@ -81,6 +85,11 @@
 					$retval_new=mysql_query($sql_new);
 					if(!$retval_new)die("Server error");
 
+					//update user_info table
+					$sql_user_update="UPDATE `user_info` SET `mobile number`='$mno',`email`='$email' WHERE username='$user'";
+					$retval_user_update=mysql_query($sql_user_update);
+					if(!$retval_user_update)die("Server error");
+
 				}
 				else{ //if details are changed along with IP and division
 						
@@ -100,6 +109,11 @@
 					$retval_new=mysql_query($sql_new);
 					if(!$retval_new)die("Server error");
 
+					//update user_info table
+					$sql_user_update="UPDATE `user_info` SET `mobile number`='$mno',`email`='$email' WHERE username='$user'";
+					$retval_user_update=mysql_query($sql_user_update);
+					if(!$retval_user_update)die("Server error");
+
 				}
 			}
 			else{ //if user searches by name
@@ -109,7 +123,7 @@
 				$retval_text=mysql_query($sql_text);
 				if(!$retval_text)die("Server error");
 				$mquery_text=mysql_fetch_array($retval_text);
-				print_r($mquery_text);
+				// print_r($mquery_text);
 
 				$user=$mquery_text['user'];
 				$ip_text=$mquery_text['IP'];
@@ -130,6 +144,11 @@
 					$retval_new=mysql_query($sql_new);
 					if(!$retval_new)die("hello Server error".mysql_error());
 
+					//update user_info table
+					$sql_user_update="UPDATE `user_info` SET `mobile number`='$mno',`email`='$email' WHERE username='$user'";
+					$retval_user_update=mysql_query($sql_user_update);
+					if(!$retval_user_update)die("Server error");
+
 				}
 				else{	//if details are changed along with IP and division
 
@@ -148,6 +167,11 @@
 
 					$retval_new=mysql_query($sql_new);
 					if(!$retval_new)die("Server error");
+
+					//update user_info table
+					$sql_user_update="UPDATE `user_info` SET `mobile number`='$mno',`email`='$email' WHERE username='$user'";
+					$retval_user_update=mysql_query($sql_user_update);
+					if(!$retval_user_update)die("Server error");
 				}
 			}
 			echo "Update Successfull...";

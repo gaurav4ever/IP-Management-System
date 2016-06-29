@@ -64,9 +64,18 @@
 						elseif($text=="")echo "Username field empty...<br> ";
 						elseif($ip=="")echo "IP field empty...<br> ";
 						if($text==$mquery2['username'] || $ip==""){
+
 							while($mquery1=mysql_fetch_array($retval1)){
 								$ip_array=array($mquery1['IP'],$mquery1['division']);
 								echo $mquery1['division'];
+								$user=$mquery1['user'];
+
+								$sql_user="SELECT * from `user_info` where username='$user'";
+								$retval_user=mysql_query($sql_user);
+								if(!$retval_user)
+									die("SERVER Error");
+								$mquery_user=mysql_fetch_array($retval_user);
+
 							$text='<form method="post" action="history.php">
 							<div class="container" style="height:400px;">
 									<div class="row">
@@ -80,6 +89,18 @@
 												
 										</div>
 									</div>
+									<div class="row">
+										<div class="col" style="float:left">
+											<div class="text_field">Mobile Number: </div>
+											<input name="mobile" value="'.$mquery_user['mobile number'].'">
+											
+										</div>
+										<div class="col" style="float:right">
+											<div class="text_field">Email ID : </div>
+											<input name="email" value="'.$mquery_user['email'].'">
+										</div>
+									</div>
+
 									<div class="row">
 										<div class="col" style="float:left">
 											<div class="text_field">Location: </div>
@@ -186,6 +207,13 @@
 						}
 						else{
 							$ip_array=array($mquery2['IP'],$mquery2['division']);
+							$user=$mquery2['user'];
+							$sql_user="SELECT * from `user_info` where username='$user'";
+								$retval_user=mysql_query($sql_user);
+								if(!$retval_user)
+									die("SERVER Error");
+								$mquery_user=mysql_fetch_array($retval_user);
+
 							echo "Username and IP did not match..<br>showing result based on IP<br><br>";
 							$text='
 							<form method="post" action="history.php">
@@ -199,6 +227,17 @@
 											<div class="text_field">Ip Add. :</div>
 											<input name="ip" id="searchtext1" value="'.$mquery2["IP"].'">
 												
+										</div>
+									</div>
+									<div class="row">
+										<div class="col" style="float:left">
+											<div class="text_field">Mobile Number: </div>
+											<input name="mobile" value="'.$mquery_user['mobile number'].'">
+											
+										</div>
+										<div class="col" style="float:right">
+											<div class="text_field">Email ID : </div>
+											<input name="email" value="'.$mquery_user['email'].'">
 										</div>
 									</div>
 									<div class="row">

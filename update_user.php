@@ -13,13 +13,13 @@
 	if(!get_magic_quotes_gpc() )
 			{
 			    $user_mobile=addslashes($_POST['mobile']);
-				$user_email=addslashes($_POST['email']);
+				$user_email=strtolower(addslashes($_POST['email']));
 				$reportPerson=addslashes($_POST['rp']);
 
 			}
 			else{
 					$user_mobile=$_POST['mobile'];
-					$user_email=$_POST['email'];
+					$user_email=strtolower($_POST['email']);
 					$reportPerson=$_POST['rp'];
 			}
 	//echo '<br>'.$user_mobile.'<br>'.$user_email.'<br>'.$reportPerson.'<br>';
